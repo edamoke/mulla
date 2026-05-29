@@ -1,0 +1,21 @@
+{
+  "store_name": "Boty Luxury Boutique",
+  "store_email": "info@boty.co.ke",
+  "store_phone": "+254 700 000 000",
+  "store_address": "Nairobi, Kenya",
+  "currency": "KES",
+  "tax_rate": "16",
+  "enable_guest_checkout": true,
+  "enable_email_notifications": true,
+  "enable_sms_notifications": false,
+  "low_stock_threshold": "10",
+  "maintenance_mode": false,
+  "etims_pin": "PIN_MULLA_TEST_2026",
+  "etims_device_id": "DEVICE_MULLA_TEST_2026",
+  "etims_server_url": "https://etims-api-test.kra.go.ke/v1",
+  "mpesa_shortcode": "174379",
+  "mpesa_consumer_key": "CON_KEY_MULLA_TEST",
+  "mpesa_consumer_secret": "CON_SEC_MULLA_TEST",
+  "mpesa_passkey": "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919",
+  "enable_online_pos_purchase": true
+}

@@ -1,0 +1,54 @@
+{
+  "home": {
+    "hero": {
+      "subtitle": "Luxury Lifestyle in Malindi",
+      "title_line1": "Live elegantly.",
+      "title_line2": "Uniquely you.",
+      "description": "Discover curated fashion, imported furniture, and exquisite decor. Premium collections for the discerning coastal lifestyle.",
+      "button_text": "Shop Collection",
+      "video_url": "https://www.pexels.com/download/video/7249512/"
+    },
+    "trust_badges": [
+      {
+        "icon": "Crown",
+        "title": "Premium Quality",
+        "description": "Handpicked luxury items"
+      },
+      {
+        "icon": "Truck",
+        "title": "Global Imports",
+        "description": "Sourced from the finest"
+      },
+      {
+        "icon": "Sparkles",
+        "title": "Exclusive Collections",
+        "description": "Unique curated pieces"
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Authenticity Guaranteed",
+        "description": "100% genuine products"
+      }
+    ],
+    "cta_banner": {
+      "title": "Luxury Living",
+      "subtitle": "Coastal Style",
+      "bg_image": "/images/bf965cf4-e728-4e72-ab1b-16b1cd8f1822.png",
+      "bullet1": "Premium Collections",
+      "bullet2": "Authentic Luxury Items",
+      "bullet3": "Globally Sourced"
+    }
+  },
+  "shop": {
+    "header": {
+      "title": "Mulla Luxury Shop",
+      "subtitle": "Discover our curated fashion & luxury decor"
+    }
+  },
+  "apartments": {
+    "header": {
+      "title": "Luxury Apartments",
+      "subtitle": "Premium rentals in Malindi"
+    }
+  }
+}
