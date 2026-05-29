@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Instagram, Facebook, Twitter } from "lucide-react"
+import { CMSFooter } from "@/lib/cms-store"
 
 const footerLinks = {
   shop: [
@@ -25,7 +26,13 @@ const footerLinks = {
   ]
 }
 
-export function Footer() {
+interface FooterProps {
+  cms?: CMSFooter
+}
+
+export function Footer({ cms }: FooterProps) {
+  const description = cms?.description ?? "Luxury fashion and lifestyle boutique in Malindi. Curated collections for those who appreciate the finer things in coastal living."
+
   return (
     <footer className="bg-card pt-20 pb-10 relative overflow-hidden">
       {/* Giant Background Text */}
@@ -41,7 +48,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <h2 className="font-serif text-3xl text-foreground mb-4">Mulla</h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-              Luxury fashion and lifestyle boutique in Malindi. Curated collections for those who appreciate the finer things in coastal living.
+              {description}
             </p>
             <div className="flex gap-4">
               <a

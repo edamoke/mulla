@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from "react"
 import { Star } from "lucide-react"
+import { CMSTestimonials, CMSTestimonialItem } from "@/lib/cms-store"
 
-const testimonials = [
+const defaultTestimonials = [
   {
     id: 1,
     name: "Amina K.",
@@ -78,15 +79,16 @@ const testimonials = [
   }
 ]
 
-const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonials[0] }) => (
+interface TestimonialsProps {
+  cms?: CMSTestimonials
+}
+
+const TestimonialCard = ({ testimonial }: { testimonial: CMSTestimonialItem }) => (
   <div className="rounded-3xl p-6 bg-white mb-4 flex-shrink-0"
     style={{
       boxShadow: "rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px"
     }}
   >
-    {/* Stars */}
-    
-
     {/* Quote */}
     <p className="text-foreground/80 leading-relaxed mb-4 text-pretty font-medium text-xl font-serif tracking-wide">
       &ldquo;{testimonial.text}&rdquo;
@@ -105,13 +107,23 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonials[0] 
   </div>
 )
 
-export function Testimonials() {
+export function Testimonials({ cms }: TestimonialsProps) {
+  const badge = cms?.badge ?? "Client Stories"
+  const title = cms?.title ?? "Trusted by many"
+  const items = cms?.items ?? defaultTestimonials
+
   const [headerVisible, setHeaderVisible] = useState(false)
   const headerRef = useRef<HTMLDivElement>(null)
   
-  const column1 = [testimonials[0], testimonials[3], testimonials[6]]
-  const column2 = [testimonials[1], testimonials[4], testimonials[7]]
-  const column3 = [testimonials[2], testimonials[5], testimonials[8]]
+  const column1: CMSTestimonialItem[] = []
+  const column2: CMSTestimonialItem[] = []
+  const column3: CMSTestimonialItem[] = []
+
+  items.forEach((item, index) => {
+    if (index % 3 === 0) column1.push(item)
+    else if (index % 3 === 1) column2.push(item)
+    else column3.push(item)
+  })
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -140,10 +152,10 @@ export function Testimonials() {
         {/* Header */}
         <div ref={headerRef} className="text-center mb-16">
           <span className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.2s', animationFillMode: 'forwards' } : {}}>
-            Client Stories
+            {badge}
           </span>
           <h2 className={`font-serif text-4xl leading-tight text-foreground text-balance md:text-7xl ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
-            Trusted by many
+            {title}
           </h2>
         </div>
 
@@ -157,7 +169,7 @@ export function Testimonials() {
           <div className="md:hidden h-[600px]">
             <div className="relative overflow-hidden h-full">
               <div className="animate-scroll-down hover:animate-scroll-down-slow">
-                {[...testimonials, ...testimonials].map((testimonial, index) => (
+                {[...items, ...items].map((testimonial, index) => (
                   <TestimonialCard key={`mobile-${testimonial.id}-${index}`} testimonial={testimonial} />
                 ))}
               </div>

@@ -5,8 +5,13 @@ import Image from "next/image"
 import Link from "next/link"
 import { ShoppingBag } from "lucide-react"
 import { useCart } from "./cart-context"
+import { CMSProductGrid } from "@/lib/cms-store"
 
 type Category = "fashion" | "furniture" | "decor"
+
+interface ProductGridProps {
+  cms?: CMSProductGrid
+}
 
 const products = [
   // Fashion
@@ -140,7 +145,11 @@ const categories = [
   { value: "decor" as Category, label: "Decor" }
 ]
 
-export function ProductGrid() {
+export function ProductGrid({ cms }: ProductGridProps) {
+  const badge = cms?.badge ?? "Our Collection"
+  const title = cms?.title ?? "Curated collections"
+  const description = cms?.description ?? "Thoughtfully selected pieces for your luxury coastal lifestyle"
+
   const [selectedCategory, setSelectedCategory] = useState<Category>("fashion")
   const [isVisible, setIsVisible] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
@@ -214,13 +223,13 @@ export function ProductGrid() {
         {/* Header */}
         <div ref={headerRef} className="text-center mb-16">
           <span className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.2s', animationFillMode: 'forwards' } : {}}>
-            Our Collection
+            {badge}
           </span>
           <h2 className={`font-serif leading-tight text-foreground mb-4 text-balance text-7xl ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
-            Curated collections
+            {title}
           </h2>
           <p className={`text-lg text-muted-foreground max-w-md mx-auto ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.6s', animationFillMode: 'forwards' } : {}}>
-            Thoughtfully selected pieces for your luxury coastal lifestyle
+            {description}
           </p>
         </div>
 

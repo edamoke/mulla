@@ -2,32 +2,68 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { Truck, Gem, Sparkles, Globe, Crown, ShieldCheck } from "lucide-react"
+import * as LucideIcons from "lucide-react"
+import { CMSFeatureSection } from "@/lib/cms-store"
 
-const features = [
-  {
-    icon: Truck,
-    title: "Worldwide Imports",
-    description: "Premium products from across the globe"
-  },
-  {
-    icon: Gem,
-    title: "Authentic Luxury",
-    description: "Handpicked exclusive collections"
-  },
-  {
-    icon: Sparkles,
-    title: "Premium Quality",
-    description: "Only the finest materials and craftsmanship"
-  },
-  {
-    icon: Globe,
-    title: "Global Sourcing",
-    description: "Curated from the world's best artisans"
-  }
-]
+const { Truck, Gem, Sparkles, Globe, Crown, ShieldCheck } = LucideIcons
 
-export function FeatureSection() {
+interface FeatureSectionProps {
+  cms?: CMSFeatureSection
+}
+
+function getIcon(name: string) {
+  const IconComponent = (LucideIcons as any)[name]
+  return IconComponent || LucideIcons.HelpCircle
+}
+
+export function FeatureSection({ cms }: FeatureSectionProps) {
+  // Bento Left
+  const bento_left_video = cms?.bento_left_video ?? "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/c4baaf67-b900-4b90-af2a-daf25a5a4b78-5un5eTbj9Z67qEtEdsQwlYrte9dZM9.mp4"
+  const bento_left_title_1 = cms?.bento_left_title_1 ?? "100%"
+  const bento_left_title_2 = cms?.bento_left_title_2 ?? "Imported"
+  const bento_left_desc = cms?.bento_left_desc ?? "Exclusively curated collections sourced from the finest global artisans and designers."
+
+  // Bento Top Right
+  const bento_right_top_bg = cms?.bento_right_top_bg ?? "/images/products/0ed61900-dd29-4dd2-bc2d-abc2db54c352.png"
+  const bento_right_top_title = cms?.bento_right_top_title ?? "Luxury Lifestyle"
+  const bento_right_top_subtitle = cms?.bento_right_top_subtitle ?? "Malindi Living"
+  const bento_right_top_bullet1 = cms?.bento_right_top_bullet1 ?? "Premium Collections"
+  const bento_right_top_bullet2 = cms?.bento_right_top_bullet2 ?? "Authentic Luxury Items"
+  const bento_right_top_bullet3 = cms?.bento_right_top_bullet3 ?? "Globally Sourced"
+
+  // Bento Bottom Right
+  const bento_right_bottom_video = cms?.bento_right_bottom_video ?? "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/a0b7c364-afa9-4afa-9716-45718578cc01-Ih8UaqQr1bl8aoNlbRha4FgaQ65eXX.mp4"
+  const bento_right_bottom_title = cms?.bento_right_bottom_title ?? "Authentic"
+  const bento_right_bottom_subtitle = cms?.bento_right_bottom_subtitle ?? "Guaranteed"
+
+  // Why Mulla Row
+  const why_video = cms?.why_video ?? "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0c826034-d4f2-4d4f-8e99-50e94e4ce63f-dG1CBOjR36xFPTbhcROrHbomGXtlTQ.mp4"
+  const why_badge = cms?.why_badge ?? "Why Mulla"
+  const why_title = cms?.why_title ?? "Style that speaks."
+  const why_description = cms?.why_description ?? "We believe luxury should be accessible. Every piece is carefully selected to bring elegance and sophistication to your coastal lifestyle."
+  const why_features = cms?.why_features ?? [
+    {
+      icon: "Truck",
+      title: "Worldwide Imports",
+      description: "Premium products from across the globe"
+    },
+    {
+      icon: "Gem",
+      title: "Authentic Luxury",
+      description: "Handpicked exclusive collections"
+    },
+    {
+      icon: "Sparkles",
+      title: "Premium Quality",
+      description: "Only the finest materials and craftsmanship"
+    },
+    {
+      icon: "Globe",
+      title: "Global Sourcing",
+      description: "Curated from the world's best artisans"
+    }
+  ]
+
   const [isVisible, setIsVisible] = useState(false)
   const [isVideoVisible, setIsVideoVisible] = useState(false)
   const [headerVisible, setHeaderVisible] = useState(false)
@@ -109,8 +145,9 @@ export function FeatureSection() {
               loop
               playsInline
               className="absolute inset-0 w-full h-full object-cover"
+              key={bento_left_video}
             >
-              <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/c4baaf67-b900-4b90-af2a-daf25a5a4b78-5un5eTbj9Z67qEtEdsQwlYrte9dZM9.mp4" type="video/mp4" />
+              <source src={bento_left_video} type="video/mp4" />
             </video>
             {/* Overlay Card */}
             <div className="absolute bottom-8 left-8 right-8 bg-white p-6 shadow-lg rounded-xl">
@@ -120,10 +157,10 @@ export function FeatureSection() {
                 </div>
                 <div>
                   <h3 className="text-xl text-foreground mb-2 font-medium">
-                    100% <span className="">Imported</span>
+                    {bento_left_title_1} <span className="">{bento_left_title_2}</span>
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Exclusively curated collections sourced from the finest global artisans and designers.
+                    {bento_left_desc}
                   </p>
                 </div>
               </div>
@@ -139,7 +176,7 @@ export function FeatureSection() {
           >
             {/* Background Image */}
             <Image
-              src="/images/products/0ed61900-dd29-4dd2-bc2d-abc2db54c352.png"
+              src={bento_right_top_bg}
               alt="Natural ingredients"
               fill
               className="object-cover"
@@ -148,24 +185,24 @@ export function FeatureSection() {
             
             <div className="relative z-10">
               <h3 className="text-3xl md:text-4xl text-white mb-2">
-                Luxury Lifestyle
+                {bento_right_top_title}
               </h3>
               <h3 className="text-2xl md:text-3xl text-white/70 mb-4">
-                Malindi Living
+                {bento_right_top_subtitle}
               </h3>
               
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-white/90 text-sm">
                   <Crown className="w-4 h-4 flex-shrink-0" />
-                  <span>Premium Collections</span>
+                  <span>{bento_right_top_bullet1}</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/90 text-sm">
                   <Gem className="w-4 h-4 flex-shrink-0" />
-                  <span>Authentic Luxury Items</span>
+                  <span>{bento_right_top_bullet2}</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/90 text-sm">
                   <Globe className="w-4 h-4 flex-shrink-0" />
-                  <span>Globally Sourced</span>
+                  <span>{bento_right_top_bullet3}</span>
                 </div>
               </div>
             </div>
@@ -185,8 +222,9 @@ export function FeatureSection() {
               loop
               playsInline
               className="absolute inset-0 w-full h-full object-cover scale-[1.02]"
+              key={bento_right_bottom_video}
             >
-              <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/a0b7c364-afa9-4afa-9716-45718578cc01-Ih8UaqQr1bl8aoNlbRha4FgaQ65eXX.mp4" type="video/mp4" />
+              <source src={bento_right_bottom_video} type="video/mp4" />
             </video>
             {/* Overlay for text readability */}
             <div className="absolute inset-0 bg-transparent" />
@@ -196,10 +234,10 @@ export function FeatureSection() {
                 <ShieldCheck className="w-8 h-8 text-black" />
               </div>
               <h3 className="font-sans text-base mb-1 text-black">
-                Authentic
+                {bento_right_bottom_title}
               </h3>
               <h3 className="text-2xl md:text-3xl mb-2 text-black">
-                Guaranteed
+                {bento_right_bottom_subtitle}
               </h3>
             </div>
           </div>
@@ -221,8 +259,9 @@ export function FeatureSection() {
               loop
               playsInline
               className="absolute inset-0 w-full h-full object-cover"
+              key={why_video}
             >
-              <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0c826034-d4f2-4d4f-8e99-50e94e4ce63f-dG1CBOjR36xFPTbhcROrHbomGXtlTQ.mp4" type="video/mp4" />
+              <source src={why_video} type="video/mp4" />
             </video>
           </div>
 
@@ -235,30 +274,32 @@ export function FeatureSection() {
             style={{ transitionDelay: '100ms' }}
           >
             <span className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.2s', animationFillMode: 'forwards' } : {}}>
-              Why Mulla
+              {why_badge}
             </span>
             <h2 className={`font-serif text-4xl leading-tight text-foreground mb-6 text-balance md:text-7xl ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
-              Style that speaks.
+              {why_title}
             </h2>
             <p className={`text-lg text-muted-foreground leading-relaxed mb-10 max-w-md ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.6s', animationFillMode: 'forwards' } : {}}>
-              We believe luxury should be accessible. Every piece is carefully selected to bring 
-              elegance and sophistication to your coastal lifestyle.
+              {why_description}
             </p>
 
             {/* Feature Cards */}
             <div className="grid sm:grid-cols-2 gap-4">
-              {features.map((feature) => (
-                <div
-                  key={feature.title}
-                  className="group p-5 boty-transition hover:scale-[1.02] rounded-md bg-white"
-                >
-                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full mb-3 group-hover:bg-primary/20 boty-transition bg-stone-50">
-                    <feature.icon className="w-5 h-5 text-primary" />
+              {why_features.map((feature) => {
+                const IconComponent = getIcon(feature.icon)
+                return (
+                  <div
+                    key={feature.title}
+                    className="group p-5 boty-transition hover:scale-[1.02] rounded-md bg-white"
+                  >
+                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-full mb-3 group-hover:bg-primary/20 boty-transition bg-stone-50">
+                      <IconComponent className="w-5 h-5 text-primary" />
+                    </div>
+                    <h3 className="font-medium text-foreground mb-1">{feature.title}</h3>
+                    <p className="text-sm text-muted-foreground">{feature.description}</p>
                   </div>
-                  <h3 className="font-medium text-foreground mb-1">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground">{feature.description}</p>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         </div>

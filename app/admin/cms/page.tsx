@@ -175,6 +175,115 @@ export default function AdminCMSPage() {
     }))
   }
 
+  // Product Grid change helper
+  const handleProductGridChange = (key: 'badge' | 'title' | 'description', value: string) => {
+    setCmsData(prev => ({
+      ...prev,
+      home: {
+        ...prev.home,
+        product_grid: {
+          ...prev.home.product_grid,
+          [key]: value
+        }
+      }
+    }))
+  }
+
+  // Feature Section change helper
+  const handleFeatureSectionChange = (key: string, value: any) => {
+    setCmsData(prev => ({
+      ...prev,
+      home: {
+        ...prev.home,
+        feature_section: {
+          ...prev.home.feature_section,
+          [key]: value
+        }
+      }
+    }))
+  }
+
+  // Why Feature Change helper
+  const handleWhyFeatureChange = (index: number, key: 'icon' | 'title' | 'description', value: string) => {
+    setCmsData(prev => {
+      const updatedFeatures = [...prev.home.feature_section.why_features]
+      updatedFeatures[index] = {
+        ...updatedFeatures[index],
+        [key]: value
+      }
+      return {
+        ...prev,
+        home: {
+          ...prev.home,
+          feature_section: {
+            ...prev.home.feature_section,
+            why_features: updatedFeatures
+          }
+        }
+      }
+    })
+  }
+
+  // Testimonials section change helper
+  const handleTestimonialSectionChange = (key: 'badge' | 'title', value: string) => {
+    setCmsData(prev => ({
+      ...prev,
+      home: {
+        ...prev.home,
+        testimonials: {
+          ...prev.home.testimonials,
+          [key]: value
+        }
+      }
+    }))
+  }
+
+  // Testimonial Item change helper
+  const handleTestimonialItemChange = (index: number, key: string, value: any) => {
+    setCmsData(prev => {
+      const updatedItems = [...prev.home.testimonials.items]
+      updatedItems[index] = {
+        ...updatedItems[index],
+        [key]: value
+      }
+      return {
+        ...prev,
+        home: {
+          ...prev.home,
+          testimonials: {
+            ...prev.home.testimonials,
+            items: updatedItems
+          }
+        }
+      }
+    })
+  }
+
+  // Newsletter change helper
+  const handleNewsletterChange = (key: 'title' | 'description' | 'disclaimer', value: string) => {
+    setCmsData(prev => ({
+      ...prev,
+      home: {
+        ...prev.home,
+        newsletter: {
+          ...prev.home.newsletter,
+          [key]: value
+        }
+      }
+    }))
+  }
+
+  // Footer change helper
+  const handleFooterChange = (key: 'description', value: string) => {
+    setCmsData(prev => ({
+      ...prev,
+      footer: {
+        ...prev.footer,
+        [key]: value
+      }
+    }))
+  }
+
   if (authLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -439,6 +548,378 @@ export default function AdminCMSPage() {
                         onChange={(e) => handleCTAChange('bullet3', e.target.value)}
                       />
                     </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Product Grid Section */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Curated Collections Section</CardTitle>
+                  <CardDescription>
+                    The curated collections product grid headers on the homepage.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="prod-badge">Category Badge</Label>
+                      <Input
+                        id="prod-badge"
+                        value={cmsData.home.product_grid?.badge || ""}
+                        onChange={(e) => handleProductGridChange('badge', e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="prod-title">Section Title</Label>
+                      <Input
+                        id="prod-title"
+                        value={cmsData.home.product_grid?.title || ""}
+                        onChange={(e) => handleProductGridChange('title', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="prod-desc">Section Description</Label>
+                    <Textarea
+                      id="prod-desc"
+                      rows={2}
+                      value={cmsData.home.product_grid?.description || ""}
+                      onChange={(e) => handleProductGridChange('description', e.target.value)}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Feature Section (Bento Grid & Why Mulla) */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Bento & Feature Section</CardTitle>
+                  <CardDescription>
+                    Customize the bento layout items and the 'Why Mulla' section.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {/* Bento Left Block */}
+                  <div className="p-4 border rounded-xl space-y-3 bg-muted/10">
+                    <h4 className="font-semibold text-sm">Bento Left Card (Large Video block)</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label>Overlay Title Part 1 (bold)</Label>
+                        <Input
+                          value={cmsData.home.feature_section?.bento_left_title_1 || ""}
+                          onChange={(e) => handleFeatureSectionChange('bento_left_title_1', e.target.value)}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Overlay Title Part 2</Label>
+                        <Input
+                          value={cmsData.home.feature_section?.bento_left_title_2 || ""}
+                          onChange={(e) => handleFeatureSectionChange('bento_left_title_2', e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Overlay Description</Label>
+                      <Input
+                        value={cmsData.home.feature_section?.bento_left_desc || ""}
+                        onChange={(e) => handleFeatureSectionChange('bento_left_desc', e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Video URL</Label>
+                      <Input
+                        value={cmsData.home.feature_section?.bento_left_video || ""}
+                        onChange={(e) => handleFeatureSectionChange('bento_left_video', e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Bento Top Right Block */}
+                  <div className="p-4 border rounded-xl space-y-3 bg-muted/10">
+                    <h4 className="font-semibold text-sm">Bento Top Right Card (Luxury Lifestyle)</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label>Card Title</Label>
+                        <Input
+                          value={cmsData.home.feature_section?.bento_right_top_title || ""}
+                          onChange={(e) => handleFeatureSectionChange('bento_right_top_title', e.target.value)}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Card Subtitle</Label>
+                        <Input
+                          value={cmsData.home.feature_section?.bento_right_top_subtitle || ""}
+                          onChange={(e) => handleFeatureSectionChange('bento_right_top_subtitle', e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Background Image URL</Label>
+                      <Input
+                        value={cmsData.home.feature_section?.bento_right_top_bg || ""}
+                        onChange={(e) => handleFeatureSectionChange('bento_right_top_bg', e.target.value)}
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="space-y-2">
+                        <Label>Bullet #1</Label>
+                        <Input
+                          value={cmsData.home.feature_section?.bento_right_top_bullet1 || ""}
+                          onChange={(e) => handleFeatureSectionChange('bento_right_top_bullet1', e.target.value)}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Bullet #2</Label>
+                        <Input
+                          value={cmsData.home.feature_section?.bento_right_top_bullet2 || ""}
+                          onChange={(e) => handleFeatureSectionChange('bento_right_top_bullet2', e.target.value)}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Bullet #3</Label>
+                        <Input
+                          value={cmsData.home.feature_section?.bento_right_top_bullet3 || ""}
+                          onChange={(e) => handleFeatureSectionChange('bento_right_top_bullet3', e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bento Bottom Right Block */}
+                  <div className="p-4 border rounded-xl space-y-3 bg-muted/10">
+                    <h4 className="font-semibold text-sm">Bento Bottom Right Card (Authentic Guaranteed)</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label>Title</Label>
+                        <Input
+                          value={cmsData.home.feature_section?.bento_right_bottom_title || ""}
+                          onChange={(e) => handleFeatureSectionChange('bento_right_bottom_title', e.target.value)}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Subtitle</Label>
+                        <Input
+                          value={cmsData.home.feature_section?.bento_right_bottom_subtitle || ""}
+                          onChange={(e) => handleFeatureSectionChange('bento_right_bottom_subtitle', e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Video URL</Label>
+                      <Input
+                        value={cmsData.home.feature_section?.bento_right_bottom_video || ""}
+                        onChange={(e) => handleFeatureSectionChange('bento_right_bottom_video', e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Why Mulla Details */}
+                  <div className="p-4 border rounded-xl space-y-3 bg-muted/10">
+                    <h4 className="font-semibold text-sm">Why Mulla ("Style that speaks") Headers</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label>Section Badge</Label>
+                        <Input
+                          value={cmsData.home.feature_section?.why_badge || ""}
+                          onChange={(e) => handleFeatureSectionChange('why_badge', e.target.value)}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Section Title</Label>
+                        <Input
+                          value={cmsData.home.feature_section?.why_title || ""}
+                          onChange={(e) => handleFeatureSectionChange('why_title', e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Section Description</Label>
+                      <Textarea
+                        rows={2}
+                        value={cmsData.home.feature_section?.why_description || ""}
+                        onChange={(e) => handleFeatureSectionChange('why_description', e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Showcase Video URL</Label>
+                      <Input
+                        value={cmsData.home.feature_section?.why_video || ""}
+                        onChange={(e) => handleFeatureSectionChange('why_video', e.target.value)}
+                      />
+                    </div>
+
+                    {/* Features cards list */}
+                    <div className="pt-4 space-y-3">
+                      <h5 className="font-semibold text-xs uppercase tracking-wider">Features Sub-Cards (Why Mulla Grid)</h5>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {(cmsData.home.feature_section?.why_features || []).map((feat, idx) => (
+                          <div key={idx} className="p-3 border rounded-lg bg-card space-y-2">
+                            <div className="flex justify-between items-center">
+                              <span className="text-xs font-bold">Feature #{idx + 1}</span>
+                              <span className="text-xs font-mono text-muted-foreground bg-stone-100 px-1.5 py-0.5 rounded">Icon: {feat.icon}</span>
+                            </div>
+                            <div className="space-y-1">
+                              <Label className="text-xs">Title</Label>
+                              <Input
+                                className="h-8 text-sm"
+                                value={feat.title || ""}
+                                onChange={(e) => handleWhyFeatureChange(idx, 'title', e.target.value)}
+                              />
+                            </div>
+                            <div className="space-y-1">
+                              <Label className="text-xs">Description</Label>
+                              <Input
+                                className="h-8 text-sm"
+                                value={feat.description || ""}
+                                onChange={(e) => handleWhyFeatureChange(idx, 'description', e.target.value)}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Testimonials (Client Stories) */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Client Stories (Testimonials)</CardTitle>
+                  <CardDescription>
+                    Edit section headers and individual customer testimonial cards.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="test-badge">Section Badge</Label>
+                      <Input
+                        id="test-badge"
+                        value={cmsData.home.testimonials?.badge || ""}
+                        onChange={(e) => handleTestimonialSectionChange('badge', e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="test-title">Section Title</Label>
+                      <Input
+                        id="test-title"
+                        value={cmsData.home.testimonials?.title || ""}
+                        onChange={(e) => handleTestimonialSectionChange('title', e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="pt-4 space-y-4 border-t">
+                    <h4 className="font-semibold text-sm">Testimonials Cards List</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {(cmsData.home.testimonials?.items || []).map((item, idx) => (
+                        <div key={idx} className="p-4 border rounded-xl bg-muted/10 space-y-2">
+                          <div className="flex justify-between items-center border-b pb-1">
+                            <span className="font-bold text-xs">Card #{idx + 1}</span>
+                            <span className="text-xs bg-stone-100 px-1.5 py-0.5 rounded text-muted-foreground font-mono">Product: {item.product}</span>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="space-y-1">
+                              <Label className="text-xs">Name</Label>
+                              <Input
+                                className="h-8 text-xs"
+                                value={item.name || ""}
+                                onChange={(e) => handleTestimonialItemChange(idx, 'name', e.target.value)}
+                              />
+                            </div>
+                            <div className="space-y-1">
+                              <Label className="text-xs">Location</Label>
+                              <Input
+                                className="h-8 text-xs"
+                                value={item.location || ""}
+                                onChange={(e) => handleTestimonialItemChange(idx, 'location', e.target.value)}
+                              />
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="space-y-1 col-span-2">
+                              <Label className="text-xs">Product Tag</Label>
+                              <Input
+                                className="h-8 text-xs"
+                                value={item.product || ""}
+                                onChange={(e) => handleTestimonialItemChange(idx, 'product', e.target.value)}
+                              />
+                            </div>
+                          </div>
+                          <div className="space-y-1">
+                            <Label className="text-xs">Review Comment Text</Label>
+                            <Textarea
+                              className="text-xs"
+                              rows={2}
+                              value={item.text || ""}
+                              onChange={(e) => handleTestimonialItemChange(idx, 'text', e.target.value)}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Newsletter Section */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Newsletter ("Join the experience")</CardTitle>
+                  <CardDescription>
+                    The email signup call-to-action block at the bottom of the homepage.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="news-title">CTA Title</Label>
+                      <Input
+                        id="news-title"
+                        value={cmsData.home.newsletter?.title || ""}
+                        onChange={(e) => handleNewsletterChange('title', e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="news-disclaimer">Disclaimer Notice</Label>
+                      <Input
+                        id="news-disclaimer"
+                        value={cmsData.home.newsletter?.disclaimer || ""}
+                        onChange={(e) => handleNewsletterChange('disclaimer', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="news-desc">CTA Description / Subtitle</Label>
+                    <Textarea
+                      id="news-desc"
+                      rows={2}
+                      value={cmsData.home.newsletter?.description || ""}
+                      onChange={(e) => handleNewsletterChange('description', e.target.value)}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Footer Section */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Footer Information</CardTitle>
+                  <CardDescription>
+                    The general boutique descriptive info in the website's footer.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="foot-desc">Footer Brand Description</Label>
+                    <Textarea
+                      id="foot-desc"
+                      rows={3}
+                      value={cmsData.footer?.description || ""}
+                      onChange={(e) => handleFooterChange('description', e.target.value)}
+                    />
                   </div>
                 </CardContent>
               </Card>

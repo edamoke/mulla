@@ -30,6 +30,130 @@
         "description": "100% genuine products"
       }
     ],
+    "product_grid": {
+      "badge": "Our Collection",
+      "title": "Curated collections",
+      "description": "Thoughtfully selected pieces for your luxury coastal lifestyle"
+    },
+    "feature_section": {
+      "bento_left_video": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/c4baaf67-b900-4b90-af2a-daf25a5a4b78-5un5eTbj9Z67qEtEdsQwlYrte9dZM9.mp4",
+      "bento_left_title_1": "100%",
+      "bento_left_title_2": "Imported",
+      "bento_left_desc": "Exclusively curated collections sourced from the finest global artisans and designers.",
+      "bento_right_top_bg": "/images/products/0ed61900-dd29-4dd2-bc2d-abc2db54c352.png",
+      "bento_right_top_title": "Luxury Lifestyle",
+      "bento_right_top_subtitle": "Malindi Living",
+      "bento_right_top_bullet1": "Premium Collections",
+      "bento_right_top_bullet2": "Authentic Luxury Items",
+      "bento_right_top_bullet3": "Globally Sourced",
+      "bento_right_bottom_video": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/a0b7c364-afa9-4afa-9716-45718578cc01-Ih8UaqQr1bl8aoNlbRha4FgaQ65eXX.mp4",
+      "bento_right_bottom_title": "Authentic",
+      "bento_right_bottom_subtitle": "Guaranteed",
+      "why_video": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0c826034-d4f2-4d4f-8e99-50e94e4ce63f-dG1CBOjR36xFPTbhcROrHbomGXtlTQ.mp4",
+      "why_badge": "Why Mulla",
+      "why_title": "Style that speaks.",
+      "why_description": "We believe luxury should be accessible. Every piece is carefully selected to bring elegance and sophistication to your coastal lifestyle.",
+      "why_features": [
+        {
+          "icon": "Truck",
+          "title": "Worldwide Imports",
+          "description": "Premium products from across the globe"
+        },
+        {
+          "icon": "Gem",
+          "title": "Authentic Luxury",
+          "description": "Handpicked exclusive collections"
+        },
+        {
+          "icon": "Sparkles",
+          "title": "Premium Quality",
+          "description": "Only the finest materials and craftsmanship"
+        },
+        {
+          "icon": "Globe",
+          "title": "Global Sourcing",
+          "description": "Curated from the world's best artisans"
+        }
+      ]
+    },
+    "testimonials": {
+      "badge": "Client Stories",
+      "title": "Trusted by many",
+      "items": [
+        {
+          "id": 1,
+          "name": "Amina K.",
+          "location": "Malindi",
+          "rating": 5,
+          "text": "The quality of the imported furniture exceeded my expectations. My living room looks absolutely stunning now.",
+          "product": "Italian Sofa"
+        },
+        {
+          "id": 2,
+          "name": "James M.",
+          "location": "Mombasa",
+          "rating": 5,
+          "text": "Finally found a boutique that understands luxury. The jewelry collection is exquisite and unique.",
+          "product": "Gold Necklace"
+        },
+        {
+          "id": 3,
+          "name": "Sarah O.",
+          "location": "Nairobi",
+          "rating": 5,
+          "text": "Mulla Apartments was perfect for our coastal getaway. The interior design was impeccable.",
+          "product": "Luxury Suite"
+        },
+        {
+          "id": 4,
+          "name": "David N.",
+          "location": "Watamu",
+          "rating": 5,
+          "text": "The decor pieces I bought transformed my beach house. Truly premium quality imports.",
+          "product": "Decor Set"
+        },
+        {
+          "id": 5,
+          "name": "Grace W.",
+          "location": "Lamu",
+          "rating": 5,
+          "text": "Outstanding customer service and authentic luxury items. Mulla is my go-to boutique now.",
+          "product": "Designer Bag"
+        },
+        {
+          "id": 6,
+          "name": "Peter K.",
+          "location": "Malindi",
+          "rating": 5,
+          "text": "The apartment exceeded all expectations. Perfect location and stunning interior design.",
+          "product": "Beach Apartment"
+        },
+        {
+          "id": 7,
+          "name": "Lucy A.",
+          "location": "Kilifi",
+          "rating": 5,
+          "text": "Every piece from Mulla tells a story of craftsmanship. The attention to detail is remarkable.",
+          "product": "Handcrafted Vase"
+        },
+        {
+          "id": 8,
+          "name": "Michael T.",
+          "location": "Nairobi",
+          "rating": 5,
+          "text": "Worth every shilling. The fashion collection is sophisticated and unique to the Kenyan coast.",
+          "product": "Linen Shirt"
+        },
+        {
+          "id": 9,
+          "name": "Fatima H.",
+          "location": "Mombasa",
+          "rating": 5,
+          "text": "Mulla brought my dream home to life with their curated furniture and decor selections.",
+          "product": "Dining Set"
+        }
+      ]
+    },
     "cta_banner": {
       "title": "Luxury Living",
       "subtitle": "Coastal Style",
@@ -37,6 +161,11 @@
       "bullet1": "Premium Collections",
       "bullet2": "Authentic Luxury Items",
       "bullet3": "Globally Sourced"
+    },
+    "newsletter": {
+      "title": "Join the experience",
+      "description": "Subscribe for exclusive offers, new arrivals, and updates on Mulla Apartments availability.",
+      "disclaimer": "Unsubscribe anytime. We respect your inbox."
     }
   },
   "shop": {
@@ -50,5 +179,8 @@
       "title": "Luxury Apartments",
       "subtitle": "Premium rentals in Malindi"
     }
+  },
+  "footer": {
+    "description": "Luxury fashion and lifestyle boutique in Malindi. Curated collections for those who appreciate the finer things in coastal living."
   }
 }

@@ -17,12 +17,12 @@ export default function HomePage() {
       <Header />
       <Hero cms={cms.home.hero} />
       <TrustBadges cms={cms.home.trust_badges} />
-      <ProductGrid />
-      <FeatureSection />
-      <Testimonials />
+      <ProductGrid cms={cms.home.product_grid} />
+      <FeatureSection cms={cms.home.feature_section} />
+      <Testimonials cms={cms.home.testimonials} />
       <CTABanner cms={cms.home.cta_banner} />
-      <Newsletter />
-      <Footer />
+      <Newsletter cms={cms.home.newsletter} />
+      <Footer cms={cms.footer} />
     </main>
   )
 }

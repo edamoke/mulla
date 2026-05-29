@@ -1,11 +1,19 @@
 "use client"
 
 import React from "react"
-
 import { useState } from "react"
 import { ArrowRight, Check } from "lucide-react"
+import { CMSNewsletter } from "@/lib/cms-store"
 
-export function Newsletter() {
+interface NewsletterProps {
+  cms?: CMSNewsletter
+}
+
+export function Newsletter({ cms }: NewsletterProps) {
+  const title = cms?.title ?? "Join the experience"
+  const description = cms?.description ?? "Subscribe for exclusive offers, new arrivals, and updates on Mulla Apartments availability."
+  const disclaimer = cms?.disclaimer ?? "Unsubscribe anytime. We respect your inbox."
+
   const [email, setEmail] = useState("")
   const [isSubscribed, setIsSubscribed] = useState(false)
 
@@ -22,10 +30,10 @@ export function Newsletter() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="font-serif text-4xl leading-tight text-primary-foreground mb-4 text-balance md:text-7xl">
-            Join the experience
+            {title}
           </h2>
           <p className="text-lg text-primary-foreground/80 mb-10">
-            Subscribe for exclusive offers, new arrivals, and updates on Mulla Apartments availability.
+            {description}
           </p>
 
           {isSubscribed ? (
@@ -54,7 +62,7 @@ export function Newsletter() {
           )}
 
           <p className="text-sm text-primary-foreground/60 mt-6">
-            Unsubscribe anytime. We respect your inbox.
+            {disclaimer}
           </p>
         </div>
       </div>
