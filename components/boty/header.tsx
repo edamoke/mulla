@@ -77,12 +77,12 @@ export function Header() {
                   <DropdownMenuTrigger asChild>
                     <button
                       type="button"
-                      className="hidden sm:flex items-center gap-2 p-2 text-foreground/70 hover:text-foreground boty-transition"
+                      className="flex items-center gap-2 p-2 text-foreground/70 hover:text-foreground boty-transition"
                       aria-label="Account menu"
                     >
                       <User className="w-5 h-5" />
                       {profile?.first_name && (
-                        <span className="text-sm">{profile.first_name}</span>
+                        <span className="text-sm hidden sm:inline">{profile.first_name}</span>
                       )}
                     </button>
                   </DropdownMenuTrigger>
@@ -125,7 +125,7 @@ export function Header() {
               ) : (
                 <Link
                   href="/auth/login"
-                  className="hidden sm:block p-2 text-foreground/70 hover:text-foreground boty-transition"
+                  className="block p-2 text-foreground/70 hover:text-foreground boty-transition"
                   aria-label="Sign in"
                 >
                   <User className="w-5 h-5" />

@@ -130,6 +130,29 @@ export default function AdminCMSPage() {
   }
 
   // Trust badge change helper
+  const handleAddBadge = () => {
+    setCmsData(prev => ({
+      ...prev,
+      home: {
+        ...prev.home,
+        trust_badges: [
+          ...prev.home.trust_badges,
+          { icon: "", title: "", description: "" } // Default new badge
+        ]
+      }
+    }))
+  }
+
+  const handleDeleteBadge = (index: number) => {
+    setCmsData(prev => ({
+      ...prev,
+      home: {
+        ...prev.home,
+        trust_badges: prev.home.trust_badges.filter((_, i) => i !== index)
+      }
+    }))
+  }
+
   const handleBadgeChange = (index: number, key: 'title' | 'description' | 'icon', value: string) => {
     setCmsData(prev => {
       const updatedBadges = [...prev.home.trust_badges]
@@ -204,6 +227,35 @@ export default function AdminCMSPage() {
   }
 
   // Why Feature Change helper
+  const handleAddWhyFeature = () => {
+    setCmsData(prev => ({
+      ...prev,
+      home: {
+        ...prev.home,
+        feature_section: {
+          ...prev.home.feature_section,
+          why_features: [
+            ...prev.home.feature_section.why_features,
+            { icon: "", title: "", description: "" } // Default new feature
+          ]
+        }
+      }
+    }))
+  }
+
+  const handleDeleteWhyFeature = (index: number) => {
+    setCmsData(prev => ({
+      ...prev,
+      home: {
+        ...prev.home,
+        feature_section: {
+          ...prev.home.feature_section,
+          why_features: prev.home.feature_section.why_features.filter((_, i) => i !== index)
+        }
+      }
+    }))
+  }
+
   const handleWhyFeatureChange = (index: number, key: 'icon' | 'title' | 'description', value: string) => {
     setCmsData(prev => {
       const updatedFeatures = [...prev.home.feature_section.why_features]
@@ -239,6 +291,35 @@ export default function AdminCMSPage() {
   }
 
   // Testimonial Item change helper
+  const handleAddTestimonial = () => {
+    setCmsData(prev => ({
+      ...prev,
+      home: {
+        ...prev.home,
+        testimonials: {
+          ...prev.home.testimonials,
+          items: [
+            ...prev.home.testimonials.items,
+            { id: Date.now(), name: "", location: "", rating: 5, text: "", product: "" } // Default new testimonial
+          ]
+        }
+      }
+    }))
+  }
+
+  const handleDeleteTestimonial = (index: number) => {
+    setCmsData(prev => ({
+      ...prev,
+      home: {
+        ...prev.home,
+        testimonials: {
+          ...prev.home.testimonials,
+          items: prev.home.testimonials.items.filter((_, i) => i !== index)
+        }
+      }
+    }))
+  }
+
   const handleTestimonialItemChange = (index: number, key: string, value: any) => {
     setCmsData(prev => {
       const updatedItems = [...prev.home.testimonials.items]
@@ -442,8 +523,29 @@ export default function AdminCMSPage() {
                     <Input
                       id="hero-video"
                       value={cmsData.home.hero.video_url}
-                      onChange={(e) => handleHeroChange('video_url', e.target.value)}
+                      onChange={(e) => handleHeroChange("video_url", e.target.value)}
                     />
+                    <div className="flex justify-end gap-2 mt-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleHeroChange("video_url", "")}
+                      >
+                        Clear Video
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          handleHeroChange(
+                            "video_url",
+                            DEFAULT_CMS.home.hero.video_url
+                          )
+                        }
+                      >
+                        Restore Default
+                      </Button>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -480,9 +582,17 @@ export default function AdminCMSPage() {
                             onChange={(e) => handleBadgeChange(idx, 'description', e.target.value)}
                           />
                         </div>
+                        <div className="flex justify-end gap-2">
+                          <Button variant="outline" size="sm" onClick={() => handleDeleteBadge(idx)}>
+                            Delete
+                          </Button>
+                        </div>
                       </div>
                     ))}
                   </div>
+                  <Button onClick={handleAddBadge} className="w-full">
+                    Add New Trust Badge
+                  </Button>
                 </CardContent>
               </Card>
 
@@ -519,8 +629,29 @@ export default function AdminCMSPage() {
                     <Input
                       id="cta-image"
                       value={cmsData.home.cta_banner.bg_image}
-                      onChange={(e) => handleCTAChange('bg_image', e.target.value)}
+                      onChange={(e) => handleCTAChange("bg_image", e.target.value)}
                     />
+                    <div className="flex justify-end gap-2 mt-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleCTAChange("bg_image", "")}
+                      >
+                        Clear Image
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          handleCTAChange(
+                            "bg_image",
+                            DEFAULT_CMS.home.cta_banner.bg_image
+                          )
+                        }
+                      >
+                        Restore Default
+                      </Button>
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -630,8 +761,29 @@ export default function AdminCMSPage() {
                       <Label>Video URL</Label>
                       <Input
                         value={cmsData.home.feature_section?.bento_left_video || ""}
-                        onChange={(e) => handleFeatureSectionChange('bento_left_video', e.target.value)}
+                        onChange={(e) => handleFeatureSectionChange("bento_left_video", e.target.value)}
                       />
+                      <div className="flex justify-end gap-2 mt-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleFeatureSectionChange("bento_left_video", "")}
+                        >
+                          Clear Video
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() =>
+                            handleFeatureSectionChange(
+                              "bento_left_video",
+                              DEFAULT_CMS.home.feature_section.bento_left_video
+                            )
+                          }
+                        >
+                          Restore Default
+                        </Button>
+                      </div>
                     </div>
                   </div>
 
@@ -658,8 +810,29 @@ export default function AdminCMSPage() {
                       <Label>Background Image URL</Label>
                       <Input
                         value={cmsData.home.feature_section?.bento_right_top_bg || ""}
-                        onChange={(e) => handleFeatureSectionChange('bento_right_top_bg', e.target.value)}
+                        onChange={(e) => handleFeatureSectionChange("bento_right_top_bg", e.target.value)}
                       />
+                      <div className="flex justify-end gap-2 mt-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleFeatureSectionChange("bento_right_top_bg", "")}
+                        >
+                          Clear Image
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() =>
+                            handleFeatureSectionChange(
+                              "bento_right_top_bg",
+                              DEFAULT_CMS.home.feature_section.bento_right_top_bg
+                            )
+                          }
+                        >
+                          Restore Default
+                        </Button>
+                      </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div className="space-y-2">
@@ -709,8 +882,29 @@ export default function AdminCMSPage() {
                       <Label>Video URL</Label>
                       <Input
                         value={cmsData.home.feature_section?.bento_right_bottom_video || ""}
-                        onChange={(e) => handleFeatureSectionChange('bento_right_bottom_video', e.target.value)}
+                        onChange={(e) => handleFeatureSectionChange("bento_right_bottom_video", e.target.value)}
                       />
+                      <div className="flex justify-end gap-2 mt-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleFeatureSectionChange("bento_right_bottom_video", "")}
+                        >
+                          Clear Video
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() =>
+                            handleFeatureSectionChange(
+                              "bento_right_bottom_video",
+                              DEFAULT_CMS.home.feature_section.bento_right_bottom_video
+                            )
+                          }
+                        >
+                          Restore Default
+                        </Button>
+                      </div>
                     </div>
                   </div>
 
@@ -745,8 +939,29 @@ export default function AdminCMSPage() {
                       <Label>Showcase Video URL</Label>
                       <Input
                         value={cmsData.home.feature_section?.why_video || ""}
-                        onChange={(e) => handleFeatureSectionChange('why_video', e.target.value)}
+                        onChange={(e) => handleFeatureSectionChange("why_video", e.target.value)}
                       />
+                      <div className="flex justify-end gap-2 mt-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleFeatureSectionChange("why_video", "")}
+                        >
+                          Clear Video
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() =>
+                            handleFeatureSectionChange(
+                              "why_video",
+                              DEFAULT_CMS.home.feature_section.why_video
+                            )
+                          }
+                        >
+                          Restore Default
+                        </Button>
+                      </div>
                     </div>
 
                     {/* Features cards list */}
@@ -764,7 +979,7 @@ export default function AdminCMSPage() {
                               <Input
                                 className="h-8 text-sm"
                                 value={feat.title || ""}
-                                onChange={(e) => handleWhyFeatureChange(idx, 'title', e.target.value)}
+                                onChange={(e) => handleWhyFeatureChange(idx, "title", e.target.value)}
                               />
                             </div>
                             <div className="space-y-1">
@@ -772,12 +987,20 @@ export default function AdminCMSPage() {
                               <Input
                                 className="h-8 text-sm"
                                 value={feat.description || ""}
-                                onChange={(e) => handleWhyFeatureChange(idx, 'description', e.target.value)}
+                                onChange={(e) => handleWhyFeatureChange(idx, "description", e.target.value)}
                               />
+                            </div>
+                            <div className="flex justify-end gap-2 mt-2">
+                              <Button variant="outline" size="sm" onClick={() => handleDeleteWhyFeature(idx)}>
+                                Delete
+                              </Button>
                             </div>
                           </div>
                         ))}
                       </div>
+                      <Button onClick={handleAddWhyFeature} className="w-full mt-4">
+                        Add New Why Feature
+                      </Button>
                     </div>
                   </div>
                 </CardContent>
@@ -826,7 +1049,7 @@ export default function AdminCMSPage() {
                               <Input
                                 className="h-8 text-xs"
                                 value={item.name || ""}
-                                onChange={(e) => handleTestimonialItemChange(idx, 'name', e.target.value)}
+                                onChange={(e) => handleTestimonialItemChange(idx, "name", e.target.value)}
                               />
                             </div>
                             <div className="space-y-1">
@@ -834,7 +1057,7 @@ export default function AdminCMSPage() {
                               <Input
                                 className="h-8 text-xs"
                                 value={item.location || ""}
-                                onChange={(e) => handleTestimonialItemChange(idx, 'location', e.target.value)}
+                                onChange={(e) => handleTestimonialItemChange(idx, "location", e.target.value)}
                               />
                             </div>
                           </div>
@@ -844,7 +1067,7 @@ export default function AdminCMSPage() {
                               <Input
                                 className="h-8 text-xs"
                                 value={item.product || ""}
-                                onChange={(e) => handleTestimonialItemChange(idx, 'product', e.target.value)}
+                                onChange={(e) => handleTestimonialItemChange(idx, "product", e.target.value)}
                               />
                             </div>
                           </div>
@@ -854,12 +1077,20 @@ export default function AdminCMSPage() {
                               className="text-xs"
                               rows={2}
                               value={item.text || ""}
-                              onChange={(e) => handleTestimonialItemChange(idx, 'text', e.target.value)}
+                              onChange={(e) => handleTestimonialItemChange(idx, "text", e.target.value)}
                             />
+                          </div>
+                          <div className="flex justify-end gap-2 mt-2">
+                            <Button variant="outline" size="sm" onClick={() => handleDeleteTestimonial(idx)}>
+                              Delete
+                            </Button>
                           </div>
                         </div>
                       ))}
                     </div>
+                    <Button onClick={handleAddTestimonial} className="w-full mt-4">
+                      Add New Testimonial
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
