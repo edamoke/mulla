@@ -1,4 +1,10 @@
 {
+  "branding": {
+    "logo_text": "Mulla",
+    "logo_type": "text",
+    "logo_image": "/placeholder-logo.png",
+    "site_icon": "/icon.svg"
+  },
   "home": {
     "hero": {
       "subtitle": "Luxury Lifestyle in Malindi",

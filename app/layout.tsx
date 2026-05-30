@@ -19,28 +19,28 @@ const playfairDisplay = Playfair_Display({
   weight: ['400', '500', '600', '700']
 });
 
-export const metadata: Metadata = {
-  title: 'Mulla Boutique — Luxury Fashion & Lifestyle',
-  description: 'Premium fashion, furniture, imported decor, and lifestyle products in Malindi, Kenya. Experience luxury coastal living.',
-  generator: 'v0.app',
-  keywords: ['fashion', 'luxury', 'boutique', 'furniture', 'decor', 'Malindi', 'Kenya', 'lifestyle', 'imported'],
-  icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
-  },
+import { getCMSData } from "@/lib/cms-store"
+
+export function generateMetadata(): Metadata {
+  const cms = getCMSData()
+  const siteIcon = cms?.branding?.site_icon || '/icon.svg'
+  const isSvg = siteIcon.endsWith('.svg')
+
+  return {
+    title: 'Mulla Boutique — Luxury Fashion & Lifestyle',
+    description: 'Premium fashion, furniture, imported decor, and lifestyle products in Malindi, Kenya. Experience luxury coastal living.',
+    generator: 'v0.app',
+    keywords: ['fashion', 'luxury', 'boutique', 'furniture', 'decor', 'Malindi', 'Kenya', 'lifestyle', 'imported'],
+    icons: {
+      icon: [
+        {
+          url: siteIcon,
+          type: isSvg ? 'image/svg+xml' : 'image/png',
+        },
+      ],
+      apple: '/apple-icon.png',
+    },
+  }
 }
 
 export const viewport: Viewport = {

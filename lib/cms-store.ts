@@ -92,7 +92,15 @@ export interface CMSFooter {
   description: string
 }
 
+export interface CMSBranding {
+  logo_text: string
+  logo_type: "text" | "image"
+  logo_image: string
+  site_icon: string
+}
+
 export interface CMSData {
+  branding: CMSBranding
   home: {
     hero: CMSHero
     trust_badges: CMSBadge[]
@@ -112,6 +120,12 @@ export interface CMSData {
 }
 
 export const DEFAULT_CMS: CMSData = {
+  branding: {
+    logo_text: "Mulla",
+    logo_type: "text",
+    logo_image: "/placeholder-logo.png",
+    site_icon: "/icon.svg"
+  },
   home: {
     hero: {
       subtitle: "Luxury Lifestyle in Malindi",
@@ -312,6 +326,10 @@ export function getCMSData(): CMSData {
     return {
       ...DEFAULT_CMS,
       ...staticCmsData,
+      branding: {
+        ...DEFAULT_CMS.branding,
+        ...((staticCmsData as any).branding || {})
+      },
       home: {
         ...DEFAULT_CMS.home,
         ...(staticCmsData.home || {}),
@@ -357,6 +375,10 @@ export function getCMSData(): CMSData {
       return {
         ...DEFAULT_CMS,
         ...parsed,
+        branding: {
+          ...DEFAULT_CMS.branding,
+          ...(parsed.branding || {})
+        },
         home: {
           ...DEFAULT_CMS.home,
           ...(parsed.home || {}),
@@ -411,6 +433,10 @@ export function saveCMSData(cms: Partial<CMSData>): CMSData {
     const updated = {
       ...current,
       ...cms,
+      branding: {
+        ...current.branding,
+        ...(cms.branding || {})
+      } as CMSBranding,
       home: {
         ...current.home,
         ...(cms.home || {}),

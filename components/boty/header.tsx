@@ -13,11 +13,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { getCMSData } from "@/lib/cms-store"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { setIsOpen, itemCount } = useCart()
   const { user, profile, isAdmin, signOut, isLoading } = useAuth()
+  const cms = getCMSData()
+  const branding = cms?.branding || { logo_text: "Mulla", logo_type: "text", logo_image: "/placeholder-logo.png", site_icon: "/icon.svg" }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-4">
@@ -56,8 +59,12 @@ export function Header() {
           </div>
 
           {/* Logo */}
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2">
-            <h1 className="font-serif text-3xl tracking-wider text-foreground">Mulla</h1>
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
+            {branding.logo_type === "image" && branding.logo_image ? (
+              <img src={branding.logo_image} alt={branding.logo_text || "Mulla"} className="h-10 w-auto object-contain" />
+            ) : (
+              <h1 className="font-serif text-3xl tracking-wider text-foreground">{branding.logo_text || "Mulla"}</h1>
+            )}
           </Link>
 
           {/* Right Actions */}

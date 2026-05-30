@@ -35,7 +35,7 @@ export default function AdminCMSPage() {
   const router = useRouter()
   const { user, isAdmin, isLoading: authLoading } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
-  const [activeTab, setActiveTab] = useState<"home" | "shop" | "apartments">("home")
+  const [activeTab, setActiveTab] = useState<"branding" | "home" | "shop" | "apartments">("branding")
   const [cmsData, setCmsData] = useState<CMSData>(DEFAULT_CMS)
 
   useEffect(() => {
@@ -85,6 +85,17 @@ export default function AdminCMSPage() {
     }
   }
 
+
+  // Branding change helper
+  const handleBrandingChange = (key: keyof typeof cmsData.branding, value: string) => {
+    setCmsData(prev => ({
+      ...prev,
+      branding: {
+        ...prev.branding,
+        [key]: value
+      }
+    }))
+  }
 
   // Hero change helpers
   const handleHeroChange = (key: keyof typeof cmsData.home.hero, value: string) => {
@@ -390,6 +401,16 @@ export default function AdminCMSPage() {
           {/* Page Tabs */}
           <div className="flex border-b border-border">
             <button
+              onClick={() => setActiveTab("branding")}
+              className={`px-6 py-3 text-sm font-medium border-b-2 transition-all ${
+                activeTab === "branding"
+                  ? "border-primary text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Site Branding
+            </button>
+            <button
               onClick={() => setActiveTab("home")}
               className={`px-6 py-3 text-sm font-medium border-b-2 transition-all ${
                 activeTab === "home"
@@ -420,6 +441,64 @@ export default function AdminCMSPage() {
               Apartments Page Header
             </button>
           </div>
+
+          {activeTab === "branding" && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Site Branding Settings</CardTitle>
+                <CardDescription>
+                  Configure your website's main logo, favicon/site icon, and display options.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="branding-logo-text">Logo Text</Label>
+                    <Input
+                      id="branding-logo-text"
+                      value={cmsData.branding?.logo_text || ""}
+                      onChange={(e) => handleBrandingChange('logo_text', e.target.value)}
+                      placeholder="e.g. Mulla"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="branding-logo-type">Logo Type</Label>
+                    <select
+                      id="branding-logo-type"
+                      title="Logo Type"
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      value={cmsData.branding?.logo_type || "text"}
+                      onChange={(e) => handleBrandingChange('logo_type', e.target.value)}
+                    >
+                      <option value="text">Text Logo</option>
+                      <option value="image">Image Logo</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="branding-logo-image">Logo Image URL / Path</Label>
+                    <Input
+                      id="branding-logo-image"
+                      value={cmsData.branding?.logo_image || ""}
+                      onChange={(e) => handleBrandingChange('logo_image', e.target.value)}
+                      placeholder="e.g. /placeholder-logo.png"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="branding-site-icon">Site Icon (Favicon) URL / Path</Label>
+                    <Input
+                      id="branding-site-icon"
+                      value={cmsData.branding?.site_icon || ""}
+                      onChange={(e) => handleBrandingChange('site_icon', e.target.value)}
+                      placeholder="e.g. /icon.svg"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           {activeTab === "home" && (
             <div className="space-y-6">
