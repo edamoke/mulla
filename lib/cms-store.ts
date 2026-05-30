@@ -92,18 +92,6 @@ export interface CMSFooter {
   description: string
 }
 
-export interface CMSAbout {
-  badge: string
-  title_normal: string
-  title_italic: string
-  description: string
-  story_badge: string
-  story_title: string
-  story_p1: string
-  story_p2: string
-  story_quote: string
-}
-
 export interface CMSData {
   home: {
     hero: CMSHero
@@ -120,22 +108,10 @@ export interface CMSData {
   apartments: {
     header: CMSPageHeader
   }
-  about: CMSAbout
   footer: CMSFooter
 }
 
 export const DEFAULT_CMS: CMSData = {
-  about: {
-    badge: "The Spirit of the Swahili Coast",
-    title_normal: "Where Coastal Serenity",
-    title_italic: "Meets Modern Luxury",
-    description: "Mulla is more than a destination; it is an sensory art form. Born under the warm golden sun of Malindi, we curate slow-living luxury through refined fashion, handcrafted home decor, and breathtaking coastal sanctuaries.",
-    story_badge: "Our Story",
-    story_title: "Crafting a Lifestyle of Elegance and Light",
-    story_p1: "Mulla emerged from an obsession with the coastal breeze, the texture of hand-spun linen, and the unique warmth of East African hospitality. We envisioned a brand that bridges the rich heritage of Swahili craftsmanship with minimalist modernism.",
-    story_p2: "Whether it's the meticulous tailoring of our linen wear, the curated selection of artisan-made home decor that breathes air and light into your home, or our collection of exclusive coastal sanctuaries overlooking the azure blue waters of the Indian Ocean—every Mulla design holds a whisper of the sea.",
-    story_quote: "We do not build environments; we curate emotions. Mulla is a love letter to slow, deliberate, beautiful living."
-  },
   home: {
     hero: {
       subtitle: "Luxury Lifestyle in Malindi",
@@ -322,14 +298,58 @@ export const DEFAULT_CMS: CMSData = {
   }
 }
 
+import staticCmsData from "./cms-data.json"
+
 const getFilePath = () => {
-  const path = require('path')
+  if (typeof window !== 'undefined') return ''
+  const path = eval("require")('path')
   return path.join(process.cwd(), 'lib', 'cms-data.json')
 }
 
 export function getCMSData(): CMSData {
+  if (typeof window !== 'undefined') {
+    // Client-side fallback: safely use static import
+    return {
+      ...DEFAULT_CMS,
+      ...staticCmsData,
+      home: {
+        ...DEFAULT_CMS.home,
+        ...(staticCmsData.home || {}),
+        hero: { ...DEFAULT_CMS.home.hero, ...(staticCmsData.home?.hero || {}) },
+        trust_badges: (staticCmsData.home as any)?.trust_badges || DEFAULT_CMS.home.trust_badges,
+        product_grid: { ...DEFAULT_CMS.home.product_grid, ...(staticCmsData.home?.product_grid || {}) },
+        feature_section: {
+          ...DEFAULT_CMS.home.feature_section,
+          ...(staticCmsData.home?.feature_section || {}),
+          why_features: (staticCmsData.home as any)?.feature_section?.why_features || DEFAULT_CMS.home.feature_section.why_features
+        },
+        testimonials: {
+          ...DEFAULT_CMS.home.testimonials,
+          ...(staticCmsData.home?.testimonials || {}),
+          items: (staticCmsData.home as any)?.testimonials?.items || DEFAULT_CMS.home.testimonials.items
+        },
+        cta_banner: { ...DEFAULT_CMS.home.cta_banner, ...(staticCmsData.home?.cta_banner || {}) },
+        newsletter: { ...DEFAULT_CMS.home.newsletter, ...(staticCmsData.home?.newsletter || {}) }
+      },
+      shop: {
+        ...DEFAULT_CMS.shop,
+        ...(staticCmsData.shop || {}),
+        header: { ...DEFAULT_CMS.shop.header, ...(staticCmsData.shop?.header || {}) }
+      },
+      apartments: {
+        ...DEFAULT_CMS.apartments,
+        ...(staticCmsData.apartments || {}),
+        header: { ...DEFAULT_CMS.apartments.header, ...(staticCmsData.apartments?.header || {}) }
+      },
+      footer: {
+        ...DEFAULT_CMS.footer,
+        ...(staticCmsData.footer || {})
+      }
+    } as CMSData
+  }
+
   try {
-    const fs = require('fs')
+    const fs = eval("require")('fs')
     const filePath = getFilePath()
     if (fs.existsSync(filePath)) {
       const data = fs.readFileSync(filePath, 'utf8')
@@ -366,10 +386,6 @@ export function getCMSData(): CMSData {
           ...(parsed.apartments || {}),
           header: { ...DEFAULT_CMS.apartments.header, ...(parsed.apartments?.header || {}) }
         },
-        about: {
-          ...DEFAULT_CMS.about,
-          ...(parsed.about || {})
-        },
         footer: {
           ...DEFAULT_CMS.footer,
           ...(parsed.footer || {})
@@ -383,9 +399,13 @@ export function getCMSData(): CMSData {
 }
 
 export function saveCMSData(cms: Partial<CMSData>): CMSData {
+  if (typeof window !== 'undefined') {
+    return { ...DEFAULT_CMS, ...cms } as CMSData
+  }
+
   try {
-    const fs = require('fs')
-    const path = require('path')
+    const fs = eval("require")('fs')
+    const path = eval("require")('path')
     const filePath = getFilePath()
     const current = getCMSData()
     const updated = {
@@ -419,10 +439,6 @@ export function saveCMSData(cms: Partial<CMSData>): CMSData {
         ...current.apartments,
         ...(cms.apartments || {}),
         header: { ...current.apartments.header, ...(cms.apartments?.header || {}) }
-      },
-      about: {
-        ...current.about,
-        ...(cms.about || {})
       },
       footer: {
         ...current.footer,

@@ -52,41 +52,39 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const fetchProfile = async (userId: string, userObject?: User | null) => {
     if (!supabase) return null
     
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single()
-
-    if (error) {
-      if (error.code !== 'PGRST116') {
-        console.error('Error fetching profile:', error)
-      } else {
-        console.log('[v0] Profile record does not exist yet. Relying on fallback metadata.')
+    try {
+      // Fetch profile via secure server-side API to bypass database RLS recursion loops
+      const response = await fetch('/api/auth/profile')
+      if (response.ok) {
+        const data = await response.json()
+        if (data && !data.error) {
+          return data as Profile
+        }
       }
-      
-      // Fallback: If we fail to fetch the profile (e.g. due to an RLS policy recursion error),
-      // we construct a safe profile from the secure user_metadata in the signed JWT.
-      const fallbackUser = userObject || user
-      if (fallbackUser) {
-        console.log('[v0] Using user_metadata fallback for profile:', fallbackUser.id)
-        return {
-          id: fallbackUser.id,
-          email: fallbackUser.email || null,
-          first_name: fallbackUser.user_metadata?.first_name || null,
-          last_name: fallbackUser.user_metadata?.last_name || null,
-          phone: fallbackUser.user_metadata?.phone || null,
-          avatar_url: fallbackUser.user_metadata?.avatar_url || null,
-          address_line1: null,
-          address_line2: null,
-          city: null,
-          country: null,
-          role: fallbackUser.user_metadata?.role || 'customer'
-        } as Profile
-      }
-      return null
+    } catch (err) {
+      console.error('Failed to fetch profile via API:', err)
     }
-    return data as Profile
+
+    // Fallback: If we fail to fetch the profile (e.g. due to API or RLS error),
+    // we construct a safe profile from the secure user_metadata in the signed JWT.
+    const fallbackUser = userObject || user
+    if (fallbackUser) {
+      console.log('[v0] Using user_metadata fallback for profile:', fallbackUser.id)
+      return {
+        id: fallbackUser.id,
+        email: fallbackUser.email || null,
+        first_name: fallbackUser.user_metadata?.first_name || null,
+        last_name: fallbackUser.user_metadata?.last_name || null,
+        phone: fallbackUser.user_metadata?.phone || null,
+        avatar_url: fallbackUser.user_metadata?.avatar_url || null,
+        address_line1: null,
+        address_line2: null,
+        city: null,
+        country: null,
+        role: fallbackUser.user_metadata?.role || 'customer'
+      } as Profile
+    }
+    return null
   }
 
   const refreshProfile = async () => {

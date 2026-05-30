@@ -70,67 +70,66 @@ export function Header() {
               <Search className="w-5 h-5" />
             </button>
             
-            {/* User Account Dropdown */}
-            {!isLoading && (
-              user ? (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <button
-                      type="button"
-                      className="flex items-center gap-2 p-2 text-foreground/70 hover:text-foreground boty-transition"
-                      aria-label="Account menu"
-                    >
-                      <User className="w-5 h-5" />
-                      {profile?.first_name && (
-                        <span className="text-sm hidden sm:inline">{profile.first_name}</span>
-                      )}
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-48">
-                    <DropdownMenuItem asChild>
-                      <Link href="/account" className="cursor-pointer">
-                        My Account
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/account/orders" className="cursor-pointer">
-                        My Orders
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/account/wishlist" className="cursor-pointer">
-                        Wishlist
-                      </Link>
-                    </DropdownMenuItem>
-                    {isAdmin && (
-                      <>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem asChild>
-                          <Link href="/admin" className="cursor-pointer font-medium">
-                            Admin Dashboard
-                          </Link>
-                        </DropdownMenuItem>
-                      </>
+            {/* User Account Dropdown or Login Link */}
+            {!isLoading && user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button
+                    type="button"
+                    className="flex items-center gap-2 p-2 text-foreground/70 hover:text-foreground boty-transition"
+                    aria-label="Account menu"
+                  >
+                    <User className="w-5 h-5" />
+                    {profile?.first_name && (
+                      <span className="text-sm hidden md:inline">{profile.first_name}</span>
                     )}
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem 
-                      onClick={() => signOut()}
-                      className="cursor-pointer text-destructive"
-                    >
-                      <LogOut className="w-4 h-4 mr-2" />
-                      Sign Out
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <Link
-                  href="/auth/login"
-                  className="block p-2 text-foreground/70 hover:text-foreground boty-transition"
-                  aria-label="Sign in"
-                >
-                  <User className="w-5 h-5" />
-                </Link>
-              )
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem asChild>
+                    <Link href="/account" className="cursor-pointer">
+                      My Account
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/account/orders" className="cursor-pointer">
+                      My Orders
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/account/wishlist" className="cursor-pointer">
+                      Wishlist
+                    </Link>
+                  </DropdownMenuItem>
+                  {isAdmin && (
+                    <>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem asChild>
+                        <Link href="/admin" className="cursor-pointer font-medium">
+                          Admin Dashboard
+                        </Link>
+                      </DropdownMenuItem>
+                    </>
+                  )}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem 
+                    onClick={() => signOut()}
+                    className="cursor-pointer text-destructive"
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link
+                href="/auth/login"
+                className="flex items-center p-2 text-foreground/70 hover:text-foreground boty-transition"
+                aria-label="Sign in"
+              >
+                <User className="w-5 h-5" />
+                <span className="text-xs ml-1 hidden md:inline">Sign In</span>
+              </Link>
             )}
             
             <button

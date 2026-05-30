@@ -1,325 +1,287 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Header } from "@/components/boty/header"
-import { Footer } from "@/components/boty/footer"
-import { getCMSData } from "@/lib/cms-store"
-import { Sparkles, Crown, MapPin, Compass, ArrowRight, Sun, Anchor, Waves } from "lucide-react"
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { 
+  Sparkles, 
+  Crown, 
+  MapPin, 
+  Compass, 
+  Layers, 
+  ArrowRight, 
+  Anchor, 
+  Moon, 
+  Waves,
+  Heart
+} from "lucide-react";
 
 export default function AboutPage() {
-  const cms = getCMSData()
+  const pillars = [
+    {
+      number: "01",
+      title: "The Atelier",
+      subtitle: "RETAIL & COUTURE",
+      description: "A meticulously curated gallery of high-fashion resort wear, artisanal jewelry, and tailored apparel. Each piece is hand-selected to embrace the breezy, sun-kissed sophistication of the East African coast.",
+      icon: Crown,
+      link: "/shop",
+      cta: "Explore Atelier"
+    },
+    {
+      number: "02",
+      title: "The Sanctuaries",
+      subtitle: "LUXURY RESIDENCES",
+      description: "Breathtaking beachfront villas and curated apartments nestled in the historic coastal enclave of Malindi, Kenya. Merging traditional Swahili craftsmanship with modern architectural grandeur.",
+      icon: Waves,
+      link: "/apartments",
+      cta: "Reserve a Stay"
+    },
+    {
+      number: "03",
+      title: "Bespoke Concierge",
+      subtitle: "TAILORED HOSPITALITY",
+      description: "From private yacht charters across the turquoise Indian Ocean to dining experiences curated by master chefs, we define personalized hospitality. Complemented by our AI-powered virtual butler.",
+      icon: Compass,
+      link: "/shop", // or general explore
+      cta: "Discover More"
+    }
+  ];
+
+  const values = [
+    {
+      icon: Anchor,
+      title: "Heritage Rooted",
+      desc: "Inspired by the century-old Swahili maritime trade routes, bringing global luxury to the beautiful shores of Kenya."
+    },
+    {
+      icon: Sparkles,
+      title: "Curation Over Mass",
+      desc: "We reject the ordinary. Every fabric, ornament, and suite layout is handpicked for its unique story and aesthetic depth."
+    },
+    {
+      icon: Moon,
+      title: "Mystique & Elegance",
+      desc: "The gentle tropical breeze, the shifting shadows of palm leaves, and golden Malindi sand translated into timeless designs."
+    }
+  ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAF9F6] text-[#2C2C2C]">
-      <Header />
-
-      <main className="flex-1 pt-24">
-        {/* Creative Hero Section */}
-        <section className="relative overflow-hidden py-20 lg:py-32 bg-gradient-to-b from-[#F5F2EB] to-[#FAF9F6]">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-10 left-10 w-72 h-72 rounded-full bg-[#D4AF37] blur-3xl animate-pulse" />
-            <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-[#C2A383] blur-3xl" />
+    <div className="flex flex-col min-h-screen bg-[#faf8f5] text-[#2c2724] overflow-x-hidden">
+      {/* Hero Section */}
+      <section className="relative w-full min-h-[90vh] flex items-center justify-center text-center px-4 pt-20">
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          {/* Elegant geometric abstract overlay and background gradient to emulate high class feel */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-[#faf8f5] z-10" />
+          <div className="absolute inset-0 bg-[#1e1915]/30 z-10 mix-blend-overlay" />
+          <Image
+            src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1800"
+            alt="Scenic beachfront in Malindi representing Mulla aesthetic"
+            layout="fill"
+            objectFit="cover"
+            priority
+            className="scale-105 animate-subtle-zoom transition-transform duration-[10000ms]"
+          />
+        </div>
+        
+        <div className="relative z-20 max-w-4xl mx-auto px-4 mt-8">
+          <span className="text-xs uppercase tracking-[0.3em] text-white/90 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full inline-block mb-6 font-semibold animate-fade-in">
+            Introducing Mulla
+          </span>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif font-light text-white tracking-tight mb-6 leading-[1.1]">
+            Where Coastline Charm Meets <br />
+            <span className="italic font-normal font-serif text-[#ebd3b9]">Sovereign Elegance</span>
+          </h1>
+          <p className="text-lg sm:text-xl text-white/90 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
+            Mulla is a sanctuary of refined lifestyle. We bridge the rich culture of Malindi, Kenya with high-fashion retail, bespoke short-term stays, and unforgettable coastal experiences.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button asChild size="lg" className="bg-[#ebd3b9] hover:bg-[#ebd3b9]/90 text-[#2c2724] font-medium tracking-wide rounded-none px-8 py-6 text-sm">
+              <Link href="/shop">Explore the Collections</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-[#2c2724] font-medium tracking-wide rounded-none px-8 py-6 text-sm bg-transparent">
+              <Link href="/apartments">The Residences</Link>
+            </Button>
           </div>
+        </div>
+      </section>
 
-          <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 border border-[rgba(212,175,55,0.3)] text-xs font-medium tracking-widest uppercase text-[#A18218] mb-6 animate-fade-in">
-              <Sun className="w-3.5 h-3.5 text-[#D4AF37] animate-spin-slow" />
-              {cms.about?.badge || "The Spirit of the Swahili Coast"}
-            </div>
-            
-            <h1 className="text-4xl md:text-6xl font-serif font-light tracking-tight text-[#1F1F1F] mb-6 leading-[1.15]">
-              {cms.about?.title_normal || "Where Coastal Serenity"} <br />
-              <span className="font-italic italic text-[#A18218]">{cms.about?.title_italic || "Meets Modern Luxury"}</span>
-            </h1>
-            
-            <p className="text-lg md:text-xl font-light text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-10">
-              {cms.about?.description || "Mulla is more than a destination; it is an sensory art form. Born under the warm golden sun of Malindi, we curate slow-living luxury through refined fashion, handcrafted home decor, and breathtaking coastal sanctuaries."}
+      {/* Philosophy Statement */}
+      <section className="py-24 bg-white border-y border-[#ebd3b9]/20 relative">
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none hidden xl:block">
+          <span className="font-serif text-[12rem] italic select-none">Mulla</span>
+        </div>
+        <div className="container max-w-5xl mx-auto px-6 text-center relative z-10">
+          <Compass className="w-10 h-10 text-[#ebd3b9] mx-auto mb-6 stroke-[1.2]" />
+          <h2 className="text-sm uppercase tracking-[0.25em] text-[#8c827a] mb-6 font-semibold">The Core Philosophy</h2>
+          <p className="text-2xl sm:text-3xl md:text-4xl font-serif font-light text-[#4a413a] leading-relaxed max-w-4xl mx-auto italic">
+            &ldquo;We do not merely sell garments or lease properties; we curate moments of exquisite pause. Mulla is a state of mind, inspired by the gentle tide and crafted for the global connoisseur.&rdquo;
+          </p>
+          <div className="w-20 h-[1px] bg-[#ebd3b9] mx-auto mt-10" />
+        </div>
+      </section>
+
+      {/* The Three Pillars Section */}
+      <section className="py-24 md:py-32 bg-[#faf8f5]">
+        <div className="container max-w-7xl mx-auto px-6">
+          <div className="text-center max-w-2xl mx-auto mb-20">
+            <span className="text-xs uppercase tracking-[0.2em] text-[#ebd3b9] font-semibold">Our Universe</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-light text-[#2c2724] mt-2">
+              The Three Pillars of Mulla
+            </h2>
+            <p className="text-muted-foreground mt-4 font-light">
+              We seamlessly weave retail, coastal residences, and personalized hospitality into one comprehensive luxury gateway.
             </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button asChild size="lg" className="bg-[#1F1F1F] hover:bg-[#3D3D3D] text-white rounded-full px-8 py-6 text-sm tracking-wider uppercase transition-all duration-300">
-                <Link href="/shop">Explore Collections</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="border-[#1F1F1F] text-[#1F1F1F] hover:bg-[#1F1F1F]/5 rounded-full px-8 py-6 text-sm tracking-wider uppercase transition-all duration-300">
-                <Link href="/apartments">Discover Apartments</Link>
-              </Button>
-            </div>
           </div>
-        </section>
 
-        {/* Narrative Chapter Section */}
-        <section className="py-20 lg:py-28">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="grid lg:grid-cols-12 gap-16 items-center">
-              {/* Left Column: Storytelling Visual */}
-              <div className="lg:col-span-5 space-y-6">
-                <div className="relative h-[480px] w-full rounded-2xl overflow-hidden shadow-2xl group">
-                  <Image
-                    src="/images/hero-model.jpg"
-                    alt="Aesthetic Coastal Living"
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-w-768px) 100vw, 50vw"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                  <div className="absolute bottom-6 left-6 right-6 text-white p-4 backdrop-blur-sm bg-black/20 rounded-xl border border-white/10">
-                    <p className="text-xs font-semibold tracking-widest uppercase mb-1">Malindi, Kenya</p>
-                    <p className="font-serif italic text-lg">"The ocean stirs the heart, inspires the imagination, and brings eternal joy to the soul."</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column: Creative Narrative */}
-              <div className="lg:col-span-7 space-y-8">
-                <div className="space-y-4">
-                  <span className="text-sm font-semibold tracking-widest uppercase text-[#A18218] block">
-                    {cms.about?.story_badge || "Our Story"}
-                  </span>
-                  <h2 className="text-3xl md:text-4xl font-serif tracking-tight text-[#1F1F1F]">
-                    {cms.about?.story_title || "Crafting a Lifestyle of Elegance and Light"}
-                  </h2>
-                </div>
-
-                <div className="space-y-6 text-muted-foreground font-light leading-relaxed text-base md:text-lg">
-                  <p>
-                    {cms.about?.story_p1 || "Mulla emerged from an obsession with the coastal breeze, the texture of hand-spun linen, and the unique warmth of East African hospitality. We envisioned a brand that bridges the rich heritage of Swahili craftsmanship with minimalist modernism."}
-                  </p>
-                  <p>
-                    {cms.about?.story_p2 || "Whether it's the meticulous tailoring of our linen wear, the curated selection of artisan-made home decor that breathes air and light into your home, or our collection of exclusive coastal sanctuaries overlooking the azure blue waters of the Indian Ocean—every Mulla design holds a whisper of the sea."}
-                  </p>
-                  <p className="border-l-2 border-[#A18218] pl-6 italic font-serif text-[#1F1F1F] text-lg">
-                    "{cms.about?.story_quote || "We do not build environments; we curate emotions. Mulla is a love letter to slow, deliberate, beautiful living."}"
-                  </p>
-                </div>
-
-                <div className="pt-4 flex items-center gap-8">
-                  <div className="text-center">
-                    <p className="text-3xl md:text-4xl font-serif text-[#1F1F1F]">100%</p>
-                    <p className="text-xs uppercase tracking-wider text-muted-foreground mt-1">Artisan-Sourced</p>
-                  </div>
-                  <div className="w-[1px] h-10 bg-border/80" />
-                  <div className="text-center">
-                    <p className="text-3xl md:text-4xl font-serif text-[#1F1F1F]">Malindi</p>
-                    <p className="text-xs uppercase tracking-wider text-muted-foreground mt-1">Our Sanctuary</p>
-                  </div>
-                  <div className="w-[1px] h-10 bg-border/80" />
-                  <div className="text-center">
-                    <p className="text-3xl md:text-4xl font-serif text-[#1F1F1F]">Organic</p>
-                    <p className="text-xs uppercase tracking-wider text-muted-foreground mt-1">Linen & Materials</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* The Three Pillars of Mulla */}
-        <section className="py-20 lg:py-28 bg-[#F4F1EA]">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-              <span className="text-sm font-semibold tracking-widest uppercase text-[#A18218]">The Triad of Slow Luxury</span>
-              <h2 className="text-3xl md:text-4xl font-serif tracking-tight text-[#1F1F1F]">Explore the Worlds of Mulla</h2>
-              <p className="text-muted-foreground font-light">Each pillar is carefully designed to transport you to a place of aesthetic harmony and coastal comfort.</p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {/* Pillar 1: Mulla Atelier */}
-              <div className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-full border border-[#E9E5DC]">
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src="/images/bento-skin-model.jpg"
-                    alt="Mulla Atelier Slow Fashion"
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300" />
-                  <div className="absolute top-4 right-4 bg-white/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] tracking-widest uppercase font-semibold text-[#1F1F1F]">
-                    Atelier
-                  </div>
-                </div>
-                <div className="p-8 flex flex-col flex-1 justify-between">
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-serif text-[#1F1F1F]">Mulla Atelier</h3>
-                    <p className="text-sm text-muted-foreground font-light leading-relaxed">
-                      Ethereal, breathable resort wear handcrafted using premium organic linen, earthy colors, and relaxed tailoring. Designed for sunset dinners and ocean breezes.
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            {pillars.map((pillar, idx) => {
+              const Icon = pillar.icon;
+              return (
+                <div 
+                  key={idx} 
+                  className="bg-white border border-[#ebd3b9]/20 p-8 md:p-10 flex flex-col justify-between hover:shadow-[0_20px_50px_rgba(235,211,185,0.2)] transition-all duration-500 hover:-translate-y-2 group"
+                >
+                  <div>
+                    <div className="flex justify-between items-start mb-10">
+                      <span className="font-serif text-5xl text-[#ebd3b9]/50 font-extralight group-hover:text-[#ebd3b9] transition-colors">
+                        {pillar.number}
+                      </span>
+                      <div className="p-3 bg-[#faf8f5] text-[#4a413a] rounded-none group-hover:bg-[#ebd3b9] group-hover:text-[#2c2724] transition-colors duration-300">
+                        <Icon className="w-6 h-6 stroke-[1.2]" />
+                      </div>
+                    </div>
+                    <span className="text-xs tracking-[0.2em] text-[#8c827a] block mb-2 font-mono">
+                      {pillar.subtitle}
+                    </span>
+                    <h3 className="text-2xl font-serif text-[#2c2724] mb-4">
+                      {pillar.title}
+                    </h3>
+                    <p className="text-[#635a54] text-sm leading-relaxed font-light mb-8">
+                      {pillar.description}
                     </p>
                   </div>
-                  <div className="pt-6">
-                    <Link href="/shop" className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#A18218] hover:text-[#1F1F1F] transition-colors group/link">
-                      Shop Slow Fashion
-                      <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1" />
-                    </Link>
-                  </div>
+                  <Link 
+                    href={pillar.link} 
+                    className="inline-flex items-center text-xs tracking-wider uppercase font-medium text-[#2c2724] border-b border-[#ebd3b9] pb-1 w-fit group-hover:border-[#2c2724] transition-colors"
+                  >
+                    {pillar.cta}
+                    <ArrowRight className="w-3.5 h-3.5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
-              </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-              {/* Pillar 2: La Maison Mulla */}
-              <div className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-full border border-[#E9E5DC]">
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src="/images/natural-leaf.jpg"
-                    alt="La Maison Mulla Decor"
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300" />
-                  <div className="absolute top-4 right-4 bg-white/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] tracking-widest uppercase font-semibold text-[#1F1F1F]">
-                    Maison
-                  </div>
-                </div>
-                <div className="p-8 flex flex-col flex-1 justify-between">
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-serif text-[#1F1F1F]">La Maison Mulla</h3>
-                    <p className="text-sm text-muted-foreground font-light leading-relaxed">
-                      Sustainably sourced, artisan-made home accessories, statement ceramics, and tactile textiles that bring the quiet tranquility of nature directly into your living spaces.
-                    </p>
-                  </div>
-                  <div className="pt-6">
-                    <Link href="/shop" className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#A18218] hover:text-[#1F1F1F] transition-colors group/link">
-                      Browse Decor
-                      <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1" />
-                    </Link>
-                  </div>
-                </div>
+      {/* Dynamic Brand Story / Swahili Blend */}
+      <section className="py-24 bg-white border-t border-[#ebd3b9]/10">
+        <div className="container max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            <div className="lg:col-span-5 relative h-[500px] sm:h-[600px] w-full border border-[#ebd3b9]/30 p-4 bg-[#faf8f5]">
+              <div className="relative w-full h-full">
+                <Image
+                  src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1200"
+                  alt="High-end resort villa view representing Mulla properties"
+                  layout="fill"
+                  objectFit="cover"
+                  className="grayscale hover:grayscale-0 transition-all duration-[2000ms]"
+                />
               </div>
+              <div className="absolute -bottom-8 -right-8 w-44 h-44 border-4 border-white bg-[#ebd3b9]/95 flex flex-col justify-center items-center text-center p-4 shadow-xl hidden sm:flex">
+                <Anchor className="w-8 h-8 text-white mb-2 stroke-[1.2]" />
+                <span className="font-serif text-sm font-medium text-white">Malindi Heritage</span>
+                <span className="text-[10px] tracking-[0.1em] text-white/80">EST. 2024</span>
+              </div>
+            </div>
 
-              {/* Pillar 3: Mulla Havens */}
-              <div className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-full border border-[#E9E5DC]">
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src="/images/skincare-ritual.jpg"
-                    alt="Mulla Havens Luxury Rentals"
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300" />
-                  <div className="absolute top-4 right-4 bg-white/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] tracking-widest uppercase font-semibold text-[#1F1F1F]">
-                    Havens
-                  </div>
+            <div className="lg:col-span-7 space-y-8 pl-0 lg:pl-10">
+              <span className="text-xs uppercase tracking-[0.2em] text-[#ebd3b9] font-semibold">Our Journey</span>
+              <h2 className="text-3xl sm:text-5xl font-serif font-light text-[#2c2724] leading-tight">
+                From the Historic Shorelines of <br />
+                <span className="italic">Malindi, Kenya</span>
+              </h2>
+              <p className="text-[#635a54] text-lg font-light leading-relaxed">
+                Mulla was founded to create an exquisite canvas of hospitality and retail on the East African coast. Malindi, with its deep-rooted history, Swahili archways, and trade winds, serves as our continuous inspiration.
+              </p>
+              <p className="text-[#635a54] leading-relaxed font-light">
+                We believe that modern travelers and collectors yearn for authenticity. Our residences are designed with local coral stone, high timber beams, and artisanal decor sourced directly from local Swahili carvers. Meanwhile, our boutique atelier features contemporary silhouettes made from organic local cottons, linen, and precious metals.
+              </p>
+              <div className="grid grid-cols-2 gap-6 pt-4 border-t border-[#ebd3b9]/30">
+                <div>
+                  <h4 className="font-serif text-3xl text-[#2c2724]">100%</h4>
+                  <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">Locally Crafted Decor</p>
                 </div>
-                <div className="p-8 flex flex-col flex-1 justify-between">
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-serif text-[#1F1F1F]">Mulla Havens</h3>
-                    <p className="text-sm text-muted-foreground font-light leading-relaxed">
-                      Exquisite coastal villas and ocean-facing boutique apartments in Malindi, offering a retreat where every detail is tailored to pamper your mind, body, and soul.
-                    </p>
-                  </div>
-                  <div className="pt-6">
-                    <Link href="/apartments" className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#A18218] hover:text-[#1F1F1F] transition-colors group/link">
-                      Reserve Your Escape
-                      <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1" />
-                    </Link>
-                  </div>
+                <div>
+                  <h4 className="font-serif text-3xl text-[#2c2724]">12+</h4>
+                  <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">Exclusive Residences</p>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Artistic Ethos & Philosophy */}
-        <section className="py-20 lg:py-28 relative overflow-hidden bg-white">
-          <div className="max-w-6xl mx-auto px-6 relative z-10">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <span className="text-sm font-semibold tracking-widest uppercase text-[#A18218]">Our Philosophy</span>
-                <h2 className="text-3xl md:text-4xl font-serif text-[#1F1F1F] tracking-tight">The Art of Mindful Luxury</h2>
-                <p className="text-muted-foreground font-light leading-relaxed">
-                  We believe true luxury is not loud or ostentatious. It is quiet. It is found in the soft touch of organic fabric against sun-kissed skin, the hand-molded asymmetry of a clay vase, and the peaceful sound of waves breaking on white sands.
-                </p>
-                
-                <div className="space-y-4 pt-4">
-                  <div className="flex gap-4 items-start">
-                    <div className="p-2 rounded-full bg-[#FAF9F6] text-[#A18218] mt-0.5">
-                      <Anchor className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <h4 className="font-serif text-[#1F1F1F] text-lg">Swahili Craftsmanship</h4>
-                      <p className="text-sm text-muted-foreground font-light mt-1">We partner directly with coastal woodworkers, weavers, and ceramicists to preserve ancient heritage and empower local communities.</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex gap-4 items-start">
-                    <div className="p-2 rounded-full bg-[#FAF9F6] text-[#A18218] mt-0.5">
-                      <Compass className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <h4 className="font-serif text-[#1F1F1F] text-lg">Eco-Conscious Curation</h4>
-                      <p className="text-sm text-muted-foreground font-light mt-1">Every material is selected mindfully—from organic, biodegradable fabrics to lead-free artisanal glazes, honoring our earth and ocean.</p>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-4 items-start">
-                    <div className="p-2 rounded-full bg-[#FAF9F6] text-[#A18218] mt-0.5">
-                      <Waves className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <h4 className="font-serif text-[#1F1F1F] text-lg">Curated Coastal Peace</h4>
-                      <p className="text-sm text-muted-foreground font-light mt-1">Our apartments are designed using principles of biophilic design to elevate peace of mind, creativity, and sensory relaxation.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Decorative Cards/Bento Layout */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-8 rounded-2xl bg-[#F4F1EA] flex flex-col justify-between h-48 hover:translate-y-[-4px] transition-transform duration-300">
-                  <Sparkles className="w-8 h-8 text-[#A18218]" />
-                  <div>
-                    <p className="font-serif text-lg text-[#1F1F1F]">Impeccable Taste</p>
-                    <p className="text-xs text-muted-foreground font-light mt-1">Curated with precision</p>
-                  </div>
-                </div>
-                <div className="p-8 rounded-2xl bg-[#E9E5DC] flex flex-col justify-between h-48 translate-y-6 hover:translate-y-[2px] transition-transform duration-300">
-                  <Crown className="w-8 h-8 text-[#A18218]" />
-                  <div>
-                    <p className="font-serif text-lg text-[#1F1F1F]">Exclusive Access</p>
-                    <p className="text-xs text-muted-foreground font-light mt-1">Limited runs & stays</p>
-                  </div>
-                </div>
-                <div className="p-8 rounded-2xl bg-[#E2DDD3] flex flex-col justify-between h-48 hover:translate-y-[-4px] transition-transform duration-300">
-                  <MapPin className="w-8 h-8 text-[#A18218]" />
-                  <div>
-                    <p className="font-serif text-lg text-[#1F1F1F]">Oceanfront Views</p>
-                    <p className="text-xs text-muted-foreground font-light mt-1">Golden beach sands</p>
-                  </div>
-                </div>
-                <div className="p-8 rounded-2xl bg-[#F5F2EB] flex flex-col justify-between h-48 translate-y-6 hover:translate-y-[2px] transition-transform duration-300">
-                  <Sun className="w-8 h-8 text-[#A18218]" />
-                  <div>
-                    <p className="font-serif text-lg text-[#1F1F1F]">Infinite Sun</p>
-                    <p className="text-xs text-muted-foreground font-light mt-1">Coastal Malindi rays</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+      {/* Key Values & Pillars */}
+      <section className="py-24 bg-[#fbfaf8] border-t border-[#ebd3b9]/20">
+        <div className="container max-w-6xl mx-auto px-6">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <h3 className="text-2xl sm:text-3xl font-serif font-light text-[#2c2724]">Our Living Creed</h3>
           </div>
-        </section>
-
-        {/* Invitation to Experience Mulla */}
-        <section className="py-24 bg-gradient-to-t from-[#F5F2EB] to-[#FAF9F6] border-t border-[#E9E5DC]">
-          <div className="max-w-4xl mx-auto px-6 text-center space-y-8">
-            <h2 className="text-3xl md:text-5xl font-serif tracking-tight text-[#1F1F1F]">Join the Mulla Lifestyle</h2>
-            <p className="text-muted-foreground font-light leading-relaxed text-lg max-w-2xl mx-auto">
-              Subscribe to receive exclusive access to capsule collection releases, interior design inspiration, and special seasonal rates for our Malindi getaways.
-            </p>
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="w-full px-6 py-4 rounded-full border border-border bg-white text-sm focus:outline-none focus:ring-1 focus:ring-[#A18218]"
-              />
-              <Button className="w-full sm:w-auto bg-[#1F1F1F] hover:bg-[#3D3D3D] text-white rounded-full px-8 py-4 text-sm tracking-wider uppercase whitespace-nowrap transition-all duration-300">
-                Subscribe
-              </Button>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {values.map((v, i) => {
+              const Icon = v.icon;
+              return (
+                <div key={i} className="text-center space-y-4">
+                  <div className="w-12 h-12 rounded-full border border-[#ebd3b9] flex items-center justify-center mx-auto text-[#ebd3b9]">
+                    <Icon className="w-5 h-5 stroke-[1.2]" />
+                  </div>
+                  <h4 className="font-serif text-xl text-[#2c2724]">{v.title}</h4>
+                  <p className="text-sm text-[#635a54] leading-relaxed font-light max-w-xs mx-auto">
+                    {v.desc}
+                  </p>
+                </div>
+              );
+            })}
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
-      <Footer cms={cms.footer} />
+      {/* Interactive Experience CTA Banner */}
+      <section className="relative py-24 md:py-32 bg-[#2c2724] text-[#faf8f5] overflow-hidden">
+        <div className="absolute inset-0 opacity-15 mix-blend-overlay pointer-events-none">
+          <Image
+            src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1800"
+            alt="Mulla sands"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-8">
+          <Compass className="w-12 h-12 text-[#ebd3b9] mx-auto animate-spin-slow stroke-[1.2]" />
+          <h2 className="text-3xl sm:text-5xl font-serif font-light tracking-tight">
+            Embrace the <span className="italic text-[#ebd3b9]">Mulla Lifestyle</span> Today
+          </h2>
+          <p className="text-white/80 max-w-2xl mx-auto font-light leading-relaxed">
+            Whether you are choosing a piece of coastal elegance to adorn your home, purchasing luxury apparel, or reserving your next sanctuary in Malindi, Mulla is here to transform your expectations.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 pt-4">
+            <Button asChild size="lg" className="bg-[#ebd3b9] hover:bg-[#ebd3b9]/90 text-[#2c2724] rounded-none px-8 py-6 text-sm">
+              <Link href="/shop">Browse the Shop</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="border-white/40 text-white hover:bg-white hover:text-[#2c2724] rounded-none px-8 py-6 text-sm bg-transparent">
+              <Link href="/apartments">Explore Apartments</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Heart-crafted Footer Attribution */}
+      <footer className="py-8 bg-white border-t border-[#ebd3b9]/20 text-center">
+        <p className="text-xs text-[#8c827a] flex items-center justify-center gap-1 font-mono">
+          Made with <Heart className="w-3 h-3 text-[#ebd3b9] fill-[#ebd3b9]" /> in Malindi, Kenya &copy; {new Date().getFullYear()} Mulla Enterprise
+        </p>
+      </footer>
     </div>
-  )
+  );
 }

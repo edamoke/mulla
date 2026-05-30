@@ -22,12 +22,54 @@ export default function LoginPage() {
     setError(null)
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
+      let resolvedEmail = email.trim()
+      
+      // If it's a handle (like "edamoke") rather than a full email, resolve it
+      if (!resolvedEmail.includes('@')) {
+        if (resolvedEmail.toLowerCase() === 'edamoke') {
+          resolvedEmail = 'edamoke@gmail.com'
+        } else {
+          // General lookup from profiles table for username or email prefix
+          const { data } = await supabase
+            .from('profiles')
+            .select('email')
+            .or(`email.ilike.${resolvedEmail}@%,first_name.ilike.${resolvedEmail},last_name.ilike.${resolvedEmail}`)
+            .limit(1)
+            .maybeSingle()
+            
+          if (data?.email) {
+            resolvedEmail = data.email
+          }
+        }
+      }
+
+      const { data: signInData, error } = await supabase.auth.signInWithPassword({
+        email: resolvedEmail,
         password,
       })
       if (error) throw error
-      router.push('/')
+
+      let role = signInData?.user?.user_metadata?.role || 'customer'
+      if (signInData?.user && !signInData.user.user_metadata?.role) {
+        // Fall back to profiles table only if role is not in user_metadata to avoid RLS policy recursion errors
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', signInData.user.id)
+          .maybeSingle()
+        role = profile?.role || 'customer'
+      }
+
+      const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null
+      const redirectUrl = searchParams?.get('redirect')
+
+      if (redirectUrl) {
+        router.push(redirectUrl)
+      } else if (role === 'admin') {
+        router.push('/admin')
+      } else {
+        router.push('/')
+      }
       router.refresh()
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : 'An error occurred')
@@ -49,13 +91,13 @@ export default function LoginPage() {
 
         {/* Form Card */}
         <div className="bg-card border border-border rounded-2xl p-8 shadow-sm">
-          <form onSubmit={handleLogin} className="space-y-6">
+          <form onSubmit={onSubmit => handleLogin(onSubmit)} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium">Email</Label>
+              <Label htmlFor="email" className="text-sm font-medium">Email or Username</Label>
               <Input
                 id="email"
-                type="email"
-                placeholder="your@email.com"
+                type="text"
+                placeholder="your@email.com or username"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

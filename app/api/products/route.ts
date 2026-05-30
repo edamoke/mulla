@@ -44,10 +44,14 @@ export async function GET(request: Request) {
   const { data, error, count } = await query.range(offset, offset + pageSize - 1)
 
   if (error) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: 500 }
-    )
+    console.warn('[v0] Supabase products query error, returning empty list:', error.message)
+    return NextResponse.json({
+      data: [],
+      total: 0,
+      page: pageNum,
+      pageSize,
+      totalPages: 0
+    })
   }
 
   return NextResponse.json({

@@ -33,19 +33,6 @@ import {
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import {
-  LayoutDashboard,
-  Package,
-  ShoppingCart,
-  Calendar,
-  Users,
-  Settings,
-  Home,
-  CreditCard,
-  Boxes,
-  Calculator,
-  Sparkles,
-  Receipt,
-  UserCircle,
   Clock,
   CheckCircle,
   PlayCircle,
@@ -55,7 +42,9 @@ import {
   User,
   AlertTriangle,
   RefreshCw,
+  Sparkles,
 } from "lucide-react"
+import { AdminSidebar } from "@/components/admin/sidebar"
 
 interface Apartment {
   id: string
@@ -95,21 +84,6 @@ interface CleaningChecklist {
   tasks: { task: string; area: string }[]
 }
 
-const sidebarItems = [
-  { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
-  { icon: CreditCard, label: "POS", href: "/admin/pos" },
-  { icon: Package, label: "Products", href: "/admin/products" },
-  { icon: Boxes, label: "Inventory", href: "/admin/inventory" },
-  { icon: ShoppingCart, label: "Orders", href: "/admin/orders" },
-  { icon: Home, label: "Apartments", href: "/admin/apartments" },
-  { icon: Calendar, label: "Bookings", href: "/admin/bookings" },
-  { icon: Receipt, label: "Rent Collection", href: "/admin/rent" },
-  { icon: Sparkles, label: "Cleaning", href: "/admin/cleaning", active: true },
-  { icon: Calculator, label: "Accounting", href: "/admin/accounting" },
-  { icon: UserCircle, label: "CRM", href: "/admin/crm" },
-  { icon: Users, label: "Staff", href: "/admin/staff" },
-  { icon: Settings, label: "Settings", href: "/admin/settings" },
-]
 
 // Default cleaning tasks if no checklist exists
 const defaultTasks = [
@@ -393,32 +367,10 @@ export default function CleaningManagementPage() {
     <div className="min-h-screen bg-muted/30">
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-64 min-h-screen bg-card border-r border-border p-4 hidden lg:block">
-          <div className="mb-8">
-            <Link href="/" className="text-xl font-serif font-semibold text-foreground">
-              Mulla Admin
-            </Link>
-          </div>
-          <nav className="space-y-1">
-            {sidebarItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                  item.active
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                }`}
-              >
-                <item.icon className="w-4 h-4" />
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </aside>
+        <AdminSidebar />
 
         {/* Main Content */}
-        <main className="flex-1 p-6">
+        <main className="lg:ml-64 flex-1 p-6">
           <div className="max-w-7xl mx-auto">
             {/* Header */}
             <div className="flex items-center justify-between mb-6">

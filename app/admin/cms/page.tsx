@@ -29,12 +29,13 @@ import {
 } from "lucide-react"
 import { DEFAULT_CMS, CMSData } from "@/lib/cms-store"
 import { useRouter } from "next/navigation"
+import { AdminSidebar } from "@/components/admin/sidebar"
 
 export default function AdminCMSPage() {
   const router = useRouter()
   const { user, isAdmin, isLoading: authLoading } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
-  const [activeTab, setActiveTab] = useState<"home" | "shop" | "apartments" | "about">("home")
+  const [activeTab, setActiveTab] = useState<"home" | "shop" | "apartments">("home")
   const [cmsData, setCmsData] = useState<CMSData>(DEFAULT_CMS)
 
   useEffect(() => {
@@ -84,22 +85,6 @@ export default function AdminCMSPage() {
     }
   }
 
-  const sidebarItems = [
-    { icon: LayoutDashboard, label: "Dashboard", href: "/admin", active: false },
-    { icon: CreditCard, label: "POS", href: "/admin/pos", active: false },
-    { icon: Package, label: "Products", href: "/admin/products", active: false },
-    { icon: Boxes, label: "Inventory", href: "/admin/inventory", active: false },
-    { icon: ShoppingCart, label: "Orders", href: "/admin/orders", active: false },
-    { icon: Home, label: "Apartments", href: "/admin/apartments", active: false },
-    { icon: Calendar, label: "Bookings", href: "/admin/bookings", active: false },
-    { icon: Receipt, label: "Rent Collection", href: "/admin/rent", active: false },
-    { icon: Sparkles, label: "Cleaning", href: "/admin/cleaning", active: false },
-    { icon: Calculator, label: "Accounting", href: "/admin/accounting", active: false },
-    { icon: UserCircle, label: "CRM", href: "/admin/crm", active: false },
-    { icon: Users, label: "Staff", href: "/admin/staff", active: false },
-    { icon: FileText, label: "CMS", href: "/admin/cms", active: true },
-    { icon: Settings, label: "Settings", href: "/admin/settings", active: false },
-  ]
 
   // Hero change helpers
   const handleHeroChange = (key: keyof typeof cmsData.home.hero, value: string) => {
@@ -194,17 +179,6 @@ export default function AdminCMSPage() {
           ...prev.apartments.header,
           [key]: value
         }
-      }
-    }))
-  }
-
-  // About page change helper
-  const handleAboutChange = (key: keyof typeof cmsData.about, value: string) => {
-    setCmsData(prev => ({
-      ...prev,
-      about: {
-        ...prev.about,
-        [key]: value
       }
     }))
   }
@@ -387,30 +361,7 @@ export default function AdminCMSPage() {
   return (
     <div className="flex min-h-screen bg-muted/30">
       {/* Sidebar */}
-      <aside className="fixed left-0 top-0 h-full w-64 bg-card border-r border-border/50 z-50 hidden lg:block">
-        <div className="p-6">
-          <Link href="/" className="font-serif text-2xl text-foreground font-semibold">
-            Mulla
-          </Link>
-          <p className="text-xs text-muted-foreground mt-1">Admin Dashboard</p>
-        </div>
-        <nav className="px-4 space-y-1">
-          {sidebarItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium boty-transition ${
-                item.active
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
-              }`}
-            >
-              <item.icon className="w-5 h-5" />
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-      </aside>
+      <AdminSidebar />
 
       {/* Main content */}
       <main className="lg:ml-64 flex-1 overflow-auto">
@@ -467,16 +418,6 @@ export default function AdminCMSPage() {
               }`}
             >
               Apartments Page Header
-            </button>
-            <button
-              onClick={() => setActiveTab("about")}
-              className={`px-6 py-3 text-sm font-medium border-b-2 transition-all ${
-                activeTab === "about"
-                  ? "border-primary text-foreground"
-                  : "border-transparent text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              About Mulla Page
             </button>
           </div>
 
@@ -1234,119 +1175,6 @@ export default function AdminCMSPage() {
                 </div>
               </CardContent>
             </Card>
-          )}
-
-          {activeTab === "about" && (
-            <div className="space-y-6">
-              {/* About Hero Section */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>About Page Hero Section</CardTitle>
-                  <CardDescription>
-                    Customize the hero header badge, main title elements, and intro summary.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="about-badge">Top Badge Tagline</Label>
-                    <Input
-                      id="about-badge"
-                      value={cmsData.about?.badge || ""}
-                      onChange={(e) => handleAboutChange('badge', e.target.value)}
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="about-t-normal">Title Part 1 (Regular)</Label>
-                      <Input
-                        id="about-t-normal"
-                        value={cmsData.about?.title_normal || ""}
-                        onChange={(e) => handleAboutChange('title_normal', e.target.value)}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="about-t-italic">Title Part 2 (Italic & Gold)</Label>
-                      <Input
-                        id="about-t-italic"
-                        value={cmsData.about?.title_italic || ""}
-                        onChange={(e) => handleAboutChange('title_italic', e.target.value)}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="about-desc">Intro Description Paragraph</Label>
-                    <Textarea
-                      id="about-desc"
-                      rows={3}
-                      value={cmsData.about?.description || ""}
-                      onChange={(e) => handleAboutChange('description', e.target.value)}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Story Narrative Section */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Narrative & Brand Story</CardTitle>
-                  <CardDescription>
-                    Configure the main storytelling narrative block of the brand.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="about-story-badge">Story Badge</Label>
-                      <Input
-                        id="about-story-badge"
-                        value={cmsData.about?.story_badge || ""}
-                        onChange={(e) => handleAboutChange('story_badge', e.target.value)}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="about-story-title">Story Header Title</Label>
-                      <Input
-                        id="about-story-title"
-                        value={cmsData.about?.story_title || ""}
-                        onChange={(e) => handleAboutChange('story_title', e.target.value)}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="about-story-p1">First Paragraph</Label>
-                    <Textarea
-                      id="about-story-p1"
-                      rows={3}
-                      value={cmsData.about?.story_p1 || ""}
-                      onChange={(e) => handleAboutChange('story_p1', e.target.value)}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="about-story-p2">Second Paragraph</Label>
-                    <Textarea
-                      id="about-story-p2"
-                      rows={3}
-                      value={cmsData.about?.story_p2 || ""}
-                      onChange={(e) => handleAboutChange('story_p2', e.target.value)}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="about-story-quote">Inspirational Brand Quote</Label>
-                    <Textarea
-                      id="about-story-quote"
-                      rows={2}
-                      value={cmsData.about?.story_quote || ""}
-                      onChange={(e) => handleAboutChange('story_quote', e.target.value)}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
           )}
         </div>
       </main>

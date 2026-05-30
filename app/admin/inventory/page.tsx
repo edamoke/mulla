@@ -9,6 +9,7 @@ import {
   Receipt, Sparkles, Calculator, UserCircle, FileText, CreditCard, Boxes
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import { AdminSidebar } from '@/components/admin/sidebar'
 
 interface Product {
   id: string
@@ -47,22 +48,6 @@ export default function InventoryPage() {
 
   const supabase = createClient()
 
-  const sidebarItems = [
-    { icon: LayoutDashboard, label: "Dashboard", href: "/admin", active: false },
-    { icon: CreditCard, label: "POS", href: "/admin/pos", active: false },
-    { icon: Package, label: "Products", href: "/admin/products", active: false },
-    { icon: Boxes, label: "Inventory", href: "/admin/inventory", active: true },
-    { icon: ShoppingCart, label: "Orders", href: "/admin/orders", active: false },
-    { icon: Home, label: "Apartments", href: "/admin/apartments", active: false },
-    { icon: Calendar, label: "Bookings", href: "/admin/bookings", active: false },
-    { icon: Receipt, label: "Rent Collection", href: "/admin/rent", active: false },
-    { icon: Sparkles, label: "Cleaning", href: "/admin/cleaning", active: false },
-    { icon: Calculator, label: "Accounting", href: "/admin/accounting", active: false },
-    { icon: UserCircle, label: "CRM", href: "/admin/crm", active: false },
-    { icon: Users, label: "Staff", href: "/admin/staff", active: false },
-    { icon: FileText, label: "CMS", href: "/admin/cms", active: false },
-    { icon: Settings, label: "Settings", href: "/admin/settings", active: false },
-  ]
 
   useEffect(() => {
     fetchProducts()
@@ -76,7 +61,7 @@ export default function InventoryPage() {
       .order('name')
 
     if (!error && data) {
-      setProducts(data as Product[])
+      setProducts(data as any[])
     }
     setIsLoading(false)
   }
@@ -176,30 +161,7 @@ export default function InventoryPage() {
   return (
     <div className="flex min-h-screen bg-muted/30">
       {/* Sidebar */}
-      <aside className="fixed left-0 top-0 h-full w-64 bg-card border-r border-border/50 z-50 hidden lg:block">
-        <div className="p-6">
-          <Link href="/" className="font-serif text-2xl text-foreground font-semibold">
-            Mulla
-          </Link>
-          <p className="text-xs text-muted-foreground mt-1">Admin Dashboard</p>
-        </div>
-        <nav className="px-4 space-y-1">
-          {sidebarItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium boty-transition ${
-                item.active
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
-              }`}
-            >
-              <item.icon className="w-5 h-5" />
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-      </aside>
+      <AdminSidebar />
 
       {/* Main Content */}
       <main className="lg:ml-64 flex-1 overflow-auto">

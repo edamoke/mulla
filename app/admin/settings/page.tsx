@@ -5,6 +5,7 @@ import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { useAuth } from "@/lib/auth-context"
 import { Button } from "@/components/ui/button"
+import { AdminSidebar } from "@/components/admin/sidebar"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -73,22 +74,6 @@ export default function AdminSettingsPage() {
     loadSettings()
   }, [])
 
-  const sidebarItems = [
-    { icon: LayoutDashboard, label: "Dashboard", href: "/admin", active: false },
-    { icon: CreditCard, label: "POS", href: "/admin/pos", active: false },
-    { icon: Package, label: "Products", href: "/admin/products", active: false },
-    { icon: Boxes, label: "Inventory", href: "/admin/inventory", active: false },
-    { icon: ShoppingCart, label: "Orders", href: "/admin/orders", active: false },
-    { icon: Home, label: "Apartments", href: "/admin/apartments", active: false },
-    { icon: Calendar, label: "Bookings", href: "/admin/bookings", active: false },
-    { icon: Receipt, label: "Rent Collection", href: "/admin/rent", active: false },
-    { icon: Sparkles, label: "Cleaning", href: "/admin/cleaning", active: false },
-    { icon: Calculator, label: "Accounting", href: "/admin/accounting", active: false },
-    { icon: UserCircle, label: "CRM", href: "/admin/crm", active: false },
-    { icon: Users, label: "Staff", href: "/admin/staff", active: false },
-    { icon: FileText, label: "CMS", href: "/admin/cms", active: false },
-    { icon: Settings, label: "Settings", href: "/admin/settings", active: true },
-  ]
 
   const handleSave = async () => {
     setIsLoading(true)
@@ -115,31 +100,10 @@ export default function AdminSettingsPage() {
   return (
     <div className="flex min-h-screen bg-muted/30">
       {/* Sidebar */}
-      <aside className="hidden w-64 border-r bg-background lg:block">
-        <div className="flex h-16 items-center gap-2 border-b px-6">
-          <Home className="h-6 w-6 text-primary" />
-          <span className="font-serif text-xl font-semibold">Boty Admin</span>
-        </div>
-        <nav className="space-y-1 p-4">
-          {sidebarItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
-                item.active
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              }`}
-            >
-              <item.icon className="h-4 w-4" />
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-      </aside>
+      <AdminSidebar />
 
       {/* Main Content */}
-      <main className="flex-1 overflow-auto">
+      <main className="lg:ml-64 flex-1 overflow-auto">
         <header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-background px-6">
           <h1 className="text-xl font-semibold">Settings</h1>
           <Button onClick={handleSave} disabled={isLoading}>
