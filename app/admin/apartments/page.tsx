@@ -150,10 +150,15 @@ export default function AdminApartmentsPage() {
   }
 
   const filteredApartments = apartments.filter((apt) => {
+    const titleText = (apt.title || apt.name || "").toLowerCase()
+    const addressText = (apt.address || "").toLowerCase()
+    const cityText = (apt.city || "").toLowerCase()
+    const query = searchQuery.toLowerCase()
+
     const matchesSearch =
-      apt.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      apt.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      apt.city.toLowerCase().includes(searchQuery.toLowerCase())
+      titleText.includes(query) ||
+      addressText.includes(query) ||
+      cityText.includes(query)
     const matchesStatus = statusFilter === "all" || apt.status === statusFilter
     return matchesSearch && matchesStatus
   })
