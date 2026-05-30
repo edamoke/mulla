@@ -34,7 +34,7 @@ export default function AdminCMSPage() {
   const router = useRouter()
   const { user, isAdmin, isLoading: authLoading } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
-  const [activeTab, setActiveTab] = useState<"home" | "shop" | "apartments">("home")
+  const [activeTab, setActiveTab] = useState<"home" | "shop" | "apartments" | "about">("home")
   const [cmsData, setCmsData] = useState<CMSData>(DEFAULT_CMS)
 
   useEffect(() => {
@@ -194,6 +194,17 @@ export default function AdminCMSPage() {
           ...prev.apartments.header,
           [key]: value
         }
+      }
+    }))
+  }
+
+  // About page change helper
+  const handleAboutChange = (key: keyof typeof cmsData.about, value: string) => {
+    setCmsData(prev => ({
+      ...prev,
+      about: {
+        ...prev.about,
+        [key]: value
       }
     }))
   }
@@ -456,6 +467,16 @@ export default function AdminCMSPage() {
               }`}
             >
               Apartments Page Header
+            </button>
+            <button
+              onClick={() => setActiveTab("about")}
+              className={`px-6 py-3 text-sm font-medium border-b-2 transition-all ${
+                activeTab === "about"
+                  ? "border-primary text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              About Mulla Page
             </button>
           </div>
 
@@ -1213,6 +1234,119 @@ export default function AdminCMSPage() {
                 </div>
               </CardContent>
             </Card>
+          )}
+
+          {activeTab === "about" && (
+            <div className="space-y-6">
+              {/* About Hero Section */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>About Page Hero Section</CardTitle>
+                  <CardDescription>
+                    Customize the hero header badge, main title elements, and intro summary.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="about-badge">Top Badge Tagline</Label>
+                    <Input
+                      id="about-badge"
+                      value={cmsData.about?.badge || ""}
+                      onChange={(e) => handleAboutChange('badge', e.target.value)}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="about-t-normal">Title Part 1 (Regular)</Label>
+                      <Input
+                        id="about-t-normal"
+                        value={cmsData.about?.title_normal || ""}
+                        onChange={(e) => handleAboutChange('title_normal', e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="about-t-italic">Title Part 2 (Italic & Gold)</Label>
+                      <Input
+                        id="about-t-italic"
+                        value={cmsData.about?.title_italic || ""}
+                        onChange={(e) => handleAboutChange('title_italic', e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="about-desc">Intro Description Paragraph</Label>
+                    <Textarea
+                      id="about-desc"
+                      rows={3}
+                      value={cmsData.about?.description || ""}
+                      onChange={(e) => handleAboutChange('description', e.target.value)}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Story Narrative Section */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Narrative & Brand Story</CardTitle>
+                  <CardDescription>
+                    Configure the main storytelling narrative block of the brand.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="about-story-badge">Story Badge</Label>
+                      <Input
+                        id="about-story-badge"
+                        value={cmsData.about?.story_badge || ""}
+                        onChange={(e) => handleAboutChange('story_badge', e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="about-story-title">Story Header Title</Label>
+                      <Input
+                        id="about-story-title"
+                        value={cmsData.about?.story_title || ""}
+                        onChange={(e) => handleAboutChange('story_title', e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="about-story-p1">First Paragraph</Label>
+                    <Textarea
+                      id="about-story-p1"
+                      rows={3}
+                      value={cmsData.about?.story_p1 || ""}
+                      onChange={(e) => handleAboutChange('story_p1', e.target.value)}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="about-story-p2">Second Paragraph</Label>
+                    <Textarea
+                      id="about-story-p2"
+                      rows={3}
+                      value={cmsData.about?.story_p2 || ""}
+                      onChange={(e) => handleAboutChange('story_p2', e.target.value)}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="about-story-quote">Inspirational Brand Quote</Label>
+                    <Textarea
+                      id="about-story-quote"
+                      rows={2}
+                      value={cmsData.about?.story_quote || ""}
+                      onChange={(e) => handleAboutChange('story_quote', e.target.value)}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           )}
         </div>
       </main>

@@ -92,6 +92,18 @@ export interface CMSFooter {
   description: string
 }
 
+export interface CMSAbout {
+  badge: string
+  title_normal: string
+  title_italic: string
+  description: string
+  story_badge: string
+  story_title: string
+  story_p1: string
+  story_p2: string
+  story_quote: string
+}
+
 export interface CMSData {
   home: {
     hero: CMSHero
@@ -108,10 +120,22 @@ export interface CMSData {
   apartments: {
     header: CMSPageHeader
   }
+  about: CMSAbout
   footer: CMSFooter
 }
 
 export const DEFAULT_CMS: CMSData = {
+  about: {
+    badge: "The Spirit of the Swahili Coast",
+    title_normal: "Where Coastal Serenity",
+    title_italic: "Meets Modern Luxury",
+    description: "Mulla is more than a destination; it is an sensory art form. Born under the warm golden sun of Malindi, we curate slow-living luxury through refined fashion, handcrafted home decor, and breathtaking coastal sanctuaries.",
+    story_badge: "Our Story",
+    story_title: "Crafting a Lifestyle of Elegance and Light",
+    story_p1: "Mulla emerged from an obsession with the coastal breeze, the texture of hand-spun linen, and the unique warmth of East African hospitality. We envisioned a brand that bridges the rich heritage of Swahili craftsmanship with minimalist modernism.",
+    story_p2: "Whether it's the meticulous tailoring of our linen wear, the curated selection of artisan-made home decor that breathes air and light into your home, or our collection of exclusive coastal sanctuaries overlooking the azure blue waters of the Indian Ocean—every Mulla design holds a whisper of the sea.",
+    story_quote: "We do not build environments; we curate emotions. Mulla is a love letter to slow, deliberate, beautiful living."
+  },
   home: {
     hero: {
       subtitle: "Luxury Lifestyle in Malindi",
@@ -342,6 +366,10 @@ export function getCMSData(): CMSData {
           ...(parsed.apartments || {}),
           header: { ...DEFAULT_CMS.apartments.header, ...(parsed.apartments?.header || {}) }
         },
+        about: {
+          ...DEFAULT_CMS.about,
+          ...(parsed.about || {})
+        },
         footer: {
           ...DEFAULT_CMS.footer,
           ...(parsed.footer || {})
@@ -391,6 +419,10 @@ export function saveCMSData(cms: Partial<CMSData>): CMSData {
         ...current.apartments,
         ...(cms.apartments || {}),
         header: { ...current.apartments.header, ...(cms.apartments?.header || {}) }
+      },
+      about: {
+        ...current.about,
+        ...(cms.about || {})
       },
       footer: {
         ...current.footer,

@@ -26,16 +26,16 @@ export default function AboutPage() {
           <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 border border-[rgba(212,175,55,0.3)] text-xs font-medium tracking-widest uppercase text-[#A18218] mb-6 animate-fade-in">
               <Sun className="w-3.5 h-3.5 text-[#D4AF37] animate-spin-slow" />
-              The Spirit of the Swahili Coast
+              {cms.about?.badge || "The Spirit of the Swahili Coast"}
             </div>
             
             <h1 className="text-4xl md:text-6xl font-serif font-light tracking-tight text-[#1F1F1F] mb-6 leading-[1.15]">
-              Where Coastal Serenity <br />
-              <span className="font-italic italic text-[#A18218]">Meets Modern Luxury</span>
+              {cms.about?.title_normal || "Where Coastal Serenity"} <br />
+              <span className="font-italic italic text-[#A18218]">{cms.about?.title_italic || "Meets Modern Luxury"}</span>
             </h1>
             
             <p className="text-lg md:text-xl font-light text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-10">
-              Mulla is more than a destination; it is an sensory art form. Born under the warm golden sun of Malindi, we curate slow-living luxury through refined fashion, handcrafted home decor, and breathtaking coastal sanctuaries.
+              {cms.about?.description || "Mulla is more than a destination; it is an sensory art form. Born under the warm golden sun of Malindi, we curate slow-living luxury through refined fashion, handcrafted home decor, and breathtaking coastal sanctuaries."}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -75,21 +75,23 @@ export default function AboutPage() {
               {/* Right Column: Creative Narrative */}
               <div className="lg:col-span-7 space-y-8">
                 <div className="space-y-4">
-                  <span className="text-sm font-semibold tracking-widest uppercase text-[#A18218] block">Our Story</span>
+                  <span className="text-sm font-semibold tracking-widest uppercase text-[#A18218] block">
+                    {cms.about?.story_badge || "Our Story"}
+                  </span>
                   <h2 className="text-3xl md:text-4xl font-serif tracking-tight text-[#1F1F1F]">
-                    Crafting a Lifestyle of Elegance and Light
+                    {cms.about?.story_title || "Crafting a Lifestyle of Elegance and Light"}
                   </h2>
                 </div>
 
                 <div className="space-y-6 text-muted-foreground font-light leading-relaxed text-base md:text-lg">
                   <p>
-                    Mulla emerged from an obsession with the coastal breeze, the texture of hand-spun linen, and the unique warmth of East African hospitality. We envisioned a brand that bridges the rich heritage of Swahili craftsmanship with minimalist modernism.
+                    {cms.about?.story_p1 || "Mulla emerged from an obsession with the coastal breeze, the texture of hand-spun linen, and the unique warmth of East African hospitality. We envisioned a brand that bridges the rich heritage of Swahili craftsmanship with minimalist modernism."}
                   </p>
                   <p>
-                    Whether it's the meticulous tailoring of our linen wear, the curated selection of artisan-made home decor that breathes air and light into your home, or our collection of exclusive coastal sanctuaries overlooking the azure blue waters of the Indian Ocean—every Mulla design holds a whisper of the sea.
+                    {cms.about?.story_p2 || "Whether it's the meticulous tailoring of our linen wear, the curated selection of artisan-made home decor that breathes air and light into your home, or our collection of exclusive coastal sanctuaries overlooking the azure blue waters of the Indian Ocean—every Mulla design holds a whisper of the sea."}
                   </p>
                   <p className="border-l-2 border-[#A18218] pl-6 italic font-serif text-[#1F1F1F] text-lg">
-                    "We do not build environments; we curate emotions. Mulla is a love letter to slow, deliberate, beautiful living."
+                    "{cms.about?.story_quote || "We do not build environments; we curate emotions. Mulla is a love letter to slow, deliberate, beautiful living."}"
                   </p>
                 </div>
 
