@@ -180,6 +180,104 @@
       "subtitle": "Discover our curated fashion & luxury decor"
     }
   },
+  "about": {
+    "hero": {
+      "badge": "Introducing Mulla",
+      "title_line1": "Where Coastline Charm Meets",
+      "title_italic": "Sovereign Elegance",
+      "description": "Mulla is a sanctuary of refined lifestyle. We bridge the rich culture of Malindi, Kenya with high-fashion retail, bespoke short-term stays, and unforgettable coastal experiences.",
+      "bg_image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1800",
+      "cta_text1": "Explore the Collections",
+      "cta_link1": "/shop",
+      "cta_text2": "The Residences",
+      "cta_link2": "/apartments"
+    },
+    "philosophy": {
+      "quote": "We do not merely sell garments or lease properties; we curate moments of exquisite pause. Mulla is a state of mind, inspired by the gentle tide and crafted for the global connoisseur."
+    },
+    "pillars": {
+      "badge": "Our Universe",
+      "title": "The Three Pillars of Mulla",
+      "description": "We seamlessly weave retail, coastal residences, and personalized hospitality into one comprehensive luxury gateway.",
+      "items": [
+        {
+          "number": "01",
+          "title": "The Atelier",
+          "subtitle": "RETAIL & COUTURE",
+          "description": "A meticulously curated gallery of high-fashion resort wear, artisanal jewelry, and tailored apparel. Each piece is hand-selected to embrace the breezy, sun-kissed sophistication of the East African coast.",
+          "icon": "Crown",
+          "link": "/shop",
+          "cta": "Explore Atelier"
+        },
+        {
+          "number": "02",
+          "title": "The Sanctuaries",
+          "subtitle": "LUXURY RESIDENCES",
+          "description": "Breathtaking beachfront villas and curated apartments nestled in the historic coastal enclave of Malindi, Kenya. Merging traditional Swahili craftsmanship with modern architectural grandeur.",
+          "icon": "Waves",
+          "link": "/apartments",
+          "cta": "Reserve a Stay"
+        },
+        {
+          "number": "03",
+          "title": "Bespoke Concierge",
+          "subtitle": "TAILORED HOSPITALITY",
+          "description": "From private yacht charters across the turquoise Indian Ocean to dining experiences curated by master chefs, we define personalized hospitality. Complemented by our AI-powered virtual butler.",
+          "icon": "Compass",
+          "link": "/shop",
+          "cta": "Discover More"
+        }
+      ]
+    },
+    "story": {
+      "badge": "Our Journey",
+      "title": "From the Historic Shorelines of",
+      "italic_title": "Malindi, Kenya",
+      "description1": "Mulla was founded to create an exquisite canvas of hospitality and retail on the East African coast. Malindi, with its deep-rooted history, Swahili archways, and trade winds, serves as our continuous inspiration.",
+      "description2": "We believe that modern travelers and collectors yearn for authenticity. Our residences are designed with local coral stone, high timber beams, and artisanal decor sourced directly from local Swahili carvers. Meanwhile, our boutique atelier features contemporary silhouettes made from organic local cottons, linen, and precious metals.",
+      "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1200",
+      "stats": [
+        {
+          "value": "100%",
+          "label": "Locally Crafted Decor"
+        },
+        {
+          "value": "12+",
+          "label": "Exclusive Residences"
+        }
+      ]
+    },
+    "creed": {
+      "title": "Our Living Creed",
+      "values": [
+        {
+          "icon": "Anchor",
+          "title": "Heritage Rooted",
+          "desc": "Inspired by the century-old Swahili maritime trade routes, bringing global luxury to the beautiful shores of Kenya."
+        },
+        {
+          "icon": "Sparkles",
+          "title": "Curation Over Mass",
+          "desc": "We reject the ordinary. Every fabric, ornament, and suite layout is handpicked for its unique story and aesthetic depth."
+        },
+        {
+          "icon": "Moon",
+          "title": "Mystique & Elegance",
+          "desc": "The gentle tropical breeze, the shifting shadows of palm leaves, and golden Malindi sand translated into timeless designs."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Embrace the",
+      "italic_title": "Mulla Lifestyle Today",
+      "description": "Whether you are choosing a piece of coastal elegance to adorn your home, purchasing luxury apparel, or reserving your next sanctuary in Malindi, Mulla is here to transform your expectations.",
+      "bg_image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1800",
+      "cta_text1": "Browse the Shop",
+      "cta_link1": "/shop",
+      "cta_text2": "Explore Apartments",
+      "cta_link2": "/apartments"
+    }
+  },
   "apartments": {
     "header": {
       "title": "Luxury Apartments",

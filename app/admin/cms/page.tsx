@@ -35,7 +35,7 @@ export default function AdminCMSPage() {
   const router = useRouter()
   const { user, isAdmin, isLoading: authLoading } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
-  const [activeTab, setActiveTab] = useState<"branding" | "home" | "shop" | "apartments">("branding")
+  const [activeTab, setActiveTab] = useState<"branding" | "home" | "shop" | "about" | "apartments">("branding")
   const [cmsData, setCmsData] = useState<CMSData>(DEFAULT_CMS)
 
   useEffect(() => {
@@ -188,6 +188,145 @@ export default function AdminCMSPage() {
         ...prev.apartments,
         header: {
           ...prev.apartments.header,
+          [key]: value
+        }
+      }
+    }))
+  }
+
+  // About Page change helpers
+  const handleAboutHeroChange = (key: string, value: string) => {
+    setCmsData(prev => ({
+      ...prev,
+      about: {
+        ...prev.about,
+        hero: {
+          ...prev.about.hero,
+          [key]: value
+        }
+      }
+    }))
+  }
+
+  const handleAboutPhilosophyChange = (value: string) => {
+    setCmsData(prev => ({
+      ...prev,
+      about: {
+        ...prev.about,
+        philosophy: {
+          ...prev.about.philosophy,
+          quote: value
+        }
+      }
+    }))
+  }
+
+  const handleAboutPillarsChange = (key: string, value: string) => {
+    setCmsData(prev => ({
+      ...prev,
+      about: {
+        ...prev.about,
+        pillars: {
+          ...prev.about.pillars,
+          [key]: value
+        }
+      }
+    }))
+  }
+
+  const handleAboutPillarItemChange = (index: number, key: string, value: string) => {
+    setCmsData(prev => {
+      const updatedItems = [...prev.about.pillars.items]
+      updatedItems[index] = {
+        ...updatedItems[index],
+        [key]: value
+      }
+      return {
+        ...prev,
+        about: {
+          ...prev.about,
+          pillars: {
+            ...prev.about.pillars,
+            items: updatedItems
+          }
+        }
+      }
+    })
+  }
+
+  const handleAboutStoryChange = (key: string, value: string) => {
+    setCmsData(prev => ({
+      ...prev,
+      about: {
+        ...prev.about,
+        story: {
+          ...prev.about.story,
+          [key]: value
+        }
+      }
+    }))
+  }
+
+  const handleAboutStatChange = (index: number, key: 'value' | 'label', value: string) => {
+    setCmsData(prev => {
+      const updatedStats = [...prev.about.story.stats]
+      updatedStats[index] = {
+        ...updatedStats[index],
+        [key]: value
+      }
+      return {
+        ...prev,
+        about: {
+          ...prev.about,
+          story: {
+            ...prev.about.story,
+            stats: updatedStats
+          }
+        }
+      }
+    })
+  }
+
+  const handleAboutCreedChange = (key: string, value: any) => {
+    setCmsData(prev => ({
+      ...prev,
+      about: {
+        ...prev.about,
+        creed: {
+          ...prev.about.creed,
+          [key]: value
+        }
+      }
+    }))
+  }
+
+  const handleAboutValueChange = (index: number, key: string, value: string) => {
+    setCmsData(prev => {
+      const updatedValues = [...prev.about.creed.values]
+      updatedValues[index] = {
+        ...updatedValues[index],
+        [key]: value
+      }
+      return {
+        ...prev,
+        about: {
+          ...prev.about,
+          creed: {
+            ...prev.about.creed,
+            values: updatedValues
+          }
+        }
+      }
+    })
+  }
+
+  const handleAboutCTAChange = (key: string, value: string) => {
+    setCmsData(prev => ({
+      ...prev,
+      about: {
+        ...prev.about,
+        cta: {
+          ...prev.about.cta,
           [key]: value
         }
       }
@@ -439,6 +578,16 @@ export default function AdminCMSPage() {
               }`}
             >
               Apartments Page Header
+            </button>
+            <button
+              onClick={() => setActiveTab("about")}
+              className={`px-6 py-3 text-sm font-medium border-b-2 transition-all ${
+                activeTab === "about"
+                  ? "border-primary text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              About Page
             </button>
           </div>
 
@@ -1230,16 +1379,16 @@ export default function AdminCMSPage() {
           {activeTab === "apartments" && (
             <Card>
               <CardHeader>
-                <CardTitle>Apartments Page Header</CardTitle>
+                <CardTitle>Apartments Page Settings</CardTitle>
                 <CardDescription>
-                  Modify the main title and introduction shown on the Apartments rental page.
+                  Configure the main header area for the luxury apartments directory.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="apt-t">Page Header Title</Label>
+                  <Label htmlFor="apt-title">Page Header Title</Label>
                   <Input
-                    id="apt-t"
+                    id="apt-title"
                     value={cmsData.apartments.header.title}
                     onChange={(e) => handleApartmentsHeaderChange('title', e.target.value)}
                   />
@@ -1254,6 +1403,249 @@ export default function AdminCMSPage() {
                 </div>
               </CardContent>
             </Card>
+          )}
+
+          {activeTab === "about" && (
+            <div className="space-y-6">
+              {/* Hero Section */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Hero Section</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>Badge</Label>
+                      <Input value={cmsData.about.hero.badge} onChange={(e) => handleAboutHeroChange('badge', e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Title Line 1</Label>
+                      <Input value={cmsData.about.hero.title_line1} onChange={(e) => handleAboutHeroChange('title_line1', e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Italic Title Part</Label>
+                      <Input value={cmsData.about.hero.title_italic} onChange={(e) => handleAboutHeroChange('title_italic', e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Background Image URL</Label>
+                      <Input value={cmsData.about.hero.bg_image} onChange={(e) => handleAboutHeroChange('bg_image', e.target.value)} />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Description</Label>
+                    <Textarea rows={3} value={cmsData.about.hero.description} onChange={(e) => handleAboutHeroChange('description', e.target.value)} />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>CTA 1 Text</Label>
+                      <Input value={cmsData.about.hero.cta_text1} onChange={(e) => handleAboutHeroChange('cta_text1', e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>CTA 1 Link</Label>
+                      <Input value={cmsData.about.hero.cta_link1} onChange={(e) => handleAboutHeroChange('cta_link1', e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>CTA 2 Text</Label>
+                      <Input value={cmsData.about.hero.cta_text2} onChange={(e) => handleAboutHeroChange('cta_text2', e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>CTA 2 Link</Label>
+                      <Input value={cmsData.about.hero.cta_link2} onChange={(e) => handleAboutHeroChange('cta_link2', e.target.value)} />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Philosophy Section */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Core Philosophy</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <Label>Philosophy Quote</Label>
+                    <Textarea rows={3} value={cmsData.about.philosophy.quote} onChange={(e) => handleAboutPhilosophyChange(e.target.value)} />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Three Pillars */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>The Three Pillars</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>Section Badge</Label>
+                      <Input value={cmsData.about.pillars.badge} onChange={(e) => handleAboutPillarsChange('badge', e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Section Title</Label>
+                      <Input value={cmsData.about.pillars.title} onChange={(e) => handleAboutPillarsChange('title', e.target.value)} />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Section Description</Label>
+                    <Textarea rows={2} value={cmsData.about.pillars.description} onChange={(e) => handleAboutPillarsChange('description', e.target.value)} />
+                  </div>
+                  <div className="grid grid-cols-1 gap-6 pt-4 border-t">
+                    {cmsData.about.pillars.items.map((pillar, idx) => (
+                      <div key={idx} className="p-4 border rounded-xl space-y-4 bg-muted/10">
+                        <h4 className="font-semibold text-sm">Pillar {pillar.number}</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label>Title</Label>
+                            <Input value={pillar.title} onChange={(e) => handleAboutPillarItemChange(idx, 'title', e.target.value)} />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>Subtitle</Label>
+                            <Input value={pillar.subtitle} onChange={(e) => handleAboutPillarItemChange(idx, 'subtitle', e.target.value)} />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>Icon Name</Label>
+                            <Input value={pillar.icon} onChange={(e) => handleAboutPillarItemChange(idx, 'icon', e.target.value)} />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>CTA Text</Label>
+                            <Input value={pillar.cta} onChange={(e) => handleAboutPillarItemChange(idx, 'cta', e.target.value)} />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>CTA Link</Label>
+                            <Input value={pillar.link} onChange={(e) => handleAboutPillarItemChange(idx, 'link', e.target.value)} />
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Description</Label>
+                          <Textarea rows={2} value={pillar.description} onChange={(e) => handleAboutPillarItemChange(idx, 'description', e.target.value)} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Brand Story */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Brand Story / Journey</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>Badge</Label>
+                      <Input value={cmsData.about.story.badge} onChange={(e) => handleAboutStoryChange('badge', e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Title Part 1</Label>
+                      <Input value={cmsData.about.story.title} onChange={(e) => handleAboutStoryChange('title', e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Italic Title Part</Label>
+                      <Input value={cmsData.about.story.italic_title} onChange={(e) => handleAboutStoryChange('italic_title', e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Image URL</Label>
+                      <Input value={cmsData.about.story.image} onChange={(e) => handleAboutStoryChange('image', e.target.value)} />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Description Paragraph 1</Label>
+                    <Textarea rows={3} value={cmsData.about.story.description1} onChange={(e) => handleAboutStoryChange('description1', e.target.value)} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Description Paragraph 2</Label>
+                    <Textarea rows={3} value={cmsData.about.story.description2} onChange={(e) => handleAboutStoryChange('description2', e.target.value)} />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4 pt-4 border-t">
+                    {cmsData.about.story.stats.map((stat, idx) => (
+                      <div key={idx} className="space-y-2">
+                        <Label>Stat {idx + 1} Value</Label>
+                        <Input value={stat.value} onChange={(e) => handleAboutStatChange(idx, 'value', e.target.value)} />
+                        <Label>Stat {idx + 1} Label</Label>
+                        <Input value={stat.label} onChange={(e) => handleAboutStatChange(idx, 'label', e.target.value)} />
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Key Values */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Living Creed / Key Values</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="space-y-2">
+                    <Label>Section Title</Label>
+                    <Input value={cmsData.about.creed.title} onChange={(e) => handleAboutCreedChange('title', e.target.value)} />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t">
+                    {cmsData.about.creed.values.map((v, idx) => (
+                      <div key={idx} className="p-4 border rounded-xl space-y-3 bg-muted/10">
+                        <div className="space-y-2">
+                          <Label>Icon Name</Label>
+                          <Input value={v.icon} onChange={(e) => handleAboutValueChange(idx, 'icon', e.target.value)} />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Title</Label>
+                          <Input value={v.title} onChange={(e) => handleAboutValueChange(idx, 'title', e.target.value)} />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Description</Label>
+                          <Textarea rows={2} value={v.desc} onChange={(e) => handleAboutValueChange(idx, 'desc', e.target.value)} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Bottom CTA Banner */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Bottom CTA Banner</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>Title Part 1</Label>
+                      <Input value={cmsData.about.cta.title} onChange={(e) => handleAboutCTAChange('title', e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Italic Title Part</Label>
+                      <Input value={cmsData.about.cta.italic_title} onChange={(e) => handleAboutCTAChange('italic_title', e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Background Image URL</Label>
+                      <Input value={cmsData.about.cta.bg_image} onChange={(e) => handleAboutCTAChange('bg_image', e.target.value)} />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Description</Label>
+                    <Textarea rows={3} value={cmsData.about.cta.description} onChange={(e) => handleAboutCTAChange('description', e.target.value)} />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>CTA 1 Text</Label>
+                      <Input value={cmsData.about.cta.cta_text1} onChange={(e) => handleAboutCTAChange('cta_text1', e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>CTA 1 Link</Label>
+                      <Input value={cmsData.about.cta.cta_link1} onChange={(e) => handleAboutCTAChange('cta_link1', e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>CTA 2 Text</Label>
+                      <Input value={cmsData.about.cta.cta_text2} onChange={(e) => handleAboutCTAChange('cta_text2', e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>CTA 2 Link</Label>
+                      <Input value={cmsData.about.cta.cta_link2} onChange={(e) => handleAboutCTAChange('cta_link2', e.target.value)} />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           )}
         </div>
       </main>

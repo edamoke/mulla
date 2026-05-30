@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
 import { 
   Sparkles, 
   Crown, 
@@ -13,57 +14,39 @@ import {
   Anchor, 
   Moon, 
   Waves,
-  Heart
+  Heart,
+  Gem,
+  ShieldCheck,
+  Truck,
+  Globe
 } from "lucide-react";
+import { getCMSData, DEFAULT_CMS } from "@/lib/cms-store";
+
+const iconMap: any = {
+  Sparkles,
+  Crown,
+  MapPin,
+  Compass,
+  Layers,
+  ArrowRight,
+  Anchor,
+  Moon,
+  Waves,
+  Heart,
+  Gem,
+  ShieldCheck,
+  Truck,
+  Globe
+};
 
 export default function AboutPage() {
-  const pillars = [
-    {
-      number: "01",
-      title: "The Atelier",
-      subtitle: "RETAIL & COUTURE",
-      description: "A meticulously curated gallery of high-fashion resort wear, artisanal jewelry, and tailored apparel. Each piece is hand-selected to embrace the breezy, sun-kissed sophistication of the East African coast.",
-      icon: Crown,
-      link: "/shop",
-      cta: "Explore Atelier"
-    },
-    {
-      number: "02",
-      title: "The Sanctuaries",
-      subtitle: "LUXURY RESIDENCES",
-      description: "Breathtaking beachfront villas and curated apartments nestled in the historic coastal enclave of Malindi, Kenya. Merging traditional Swahili craftsmanship with modern architectural grandeur.",
-      icon: Waves,
-      link: "/apartments",
-      cta: "Reserve a Stay"
-    },
-    {
-      number: "03",
-      title: "Bespoke Concierge",
-      subtitle: "TAILORED HOSPITALITY",
-      description: "From private yacht charters across the turquoise Indian Ocean to dining experiences curated by master chefs, we define personalized hospitality. Complemented by our AI-powered virtual butler.",
-      icon: Compass,
-      link: "/shop", // or general explore
-      cta: "Discover More"
-    }
-  ];
+  const [cms, setCms] = useState(DEFAULT_CMS);
 
-  const values = [
-    {
-      icon: Anchor,
-      title: "Heritage Rooted",
-      desc: "Inspired by the century-old Swahili maritime trade routes, bringing global luxury to the beautiful shores of Kenya."
-    },
-    {
-      icon: Sparkles,
-      title: "Curation Over Mass",
-      desc: "We reject the ordinary. Every fabric, ornament, and suite layout is handpicked for its unique story and aesthetic depth."
-    },
-    {
-      icon: Moon,
-      title: "Mystique & Elegance",
-      desc: "The gentle tropical breeze, the shifting shadows of palm leaves, and golden Malindi sand translated into timeless designs."
-    }
-  ];
+  useEffect(() => {
+    setCms(getCMSData());
+  }, []);
+
+  const { about } = cms;
 
   return (
     <div className="flex flex-col min-h-screen bg-[#faf8f5] text-[#2c2724] overflow-x-hidden">
@@ -74,7 +57,7 @@ export default function AboutPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-[#faf8f5] z-10" />
           <div className="absolute inset-0 bg-[#1e1915]/30 z-10 mix-blend-overlay" />
           <Image
-            src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1800"
+            src={about.hero.bg_image}
             alt="Scenic beachfront in Malindi representing Mulla aesthetic"
             layout="fill"
             objectFit="cover"
@@ -85,21 +68,21 @@ export default function AboutPage() {
         
         <div className="relative z-20 max-w-4xl mx-auto px-4 mt-8">
           <span className="text-xs uppercase tracking-[0.3em] text-white/90 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full inline-block mb-6 font-semibold animate-fade-in">
-            Introducing Mulla
+            {about.hero.badge}
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif font-light text-white tracking-tight mb-6 leading-[1.1]">
-            Where Coastline Charm Meets <br />
-            <span className="italic font-normal font-serif text-[#ebd3b9]">Sovereign Elegance</span>
+            {about.hero.title_line1} <br />
+            <span className="italic font-normal font-serif text-[#ebd3b9]">{about.hero.title_italic}</span>
           </h1>
           <p className="text-lg sm:text-xl text-white/90 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
-            Mulla is a sanctuary of refined lifestyle. We bridge the rich culture of Malindi, Kenya with high-fashion retail, bespoke short-term stays, and unforgettable coastal experiences.
+            {about.hero.description}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button asChild size="lg" className="bg-[#ebd3b9] hover:bg-[#ebd3b9]/90 text-[#2c2724] font-medium tracking-wide rounded-none px-8 py-6 text-sm">
-              <Link href="/shop">Explore the Collections</Link>
+              <Link href={about.hero.cta_link1}>{about.hero.cta_text1}</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-[#2c2724] font-medium tracking-wide rounded-none px-8 py-6 text-sm bg-transparent">
-              <Link href="/apartments">The Residences</Link>
+              <Link href={about.hero.cta_link2}>{about.hero.cta_text2}</Link>
             </Button>
           </div>
         </div>
@@ -114,7 +97,7 @@ export default function AboutPage() {
           <Compass className="w-10 h-10 text-[#ebd3b9] mx-auto mb-6 stroke-[1.2]" />
           <h2 className="text-sm uppercase tracking-[0.25em] text-[#8c827a] mb-6 font-semibold">The Core Philosophy</h2>
           <p className="text-2xl sm:text-3xl md:text-4xl font-serif font-light text-[#4a413a] leading-relaxed max-w-4xl mx-auto italic">
-            &ldquo;We do not merely sell garments or lease properties; we curate moments of exquisite pause. Mulla is a state of mind, inspired by the gentle tide and crafted for the global connoisseur.&rdquo;
+            &ldquo;{about.philosophy.quote}&rdquo;
           </p>
           <div className="w-20 h-[1px] bg-[#ebd3b9] mx-auto mt-10" />
         </div>
@@ -124,18 +107,18 @@ export default function AboutPage() {
       <section className="py-24 md:py-32 bg-[#faf8f5]">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-20">
-            <span className="text-xs uppercase tracking-[0.2em] text-[#ebd3b9] font-semibold">Our Universe</span>
+            <span className="text-xs uppercase tracking-[0.2em] text-[#ebd3b9] font-semibold">{about.pillars.badge}</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-light text-[#2c2724] mt-2">
-              The Three Pillars of Mulla
+              {about.pillars.title}
             </h2>
             <p className="text-muted-foreground mt-4 font-light">
-              We seamlessly weave retail, coastal residences, and personalized hospitality into one comprehensive luxury gateway.
+              {about.pillars.description}
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            {pillars.map((pillar, idx) => {
-              const Icon = pillar.icon;
+            {about.pillars.items.map((pillar, idx) => {
+              const Icon = iconMap[pillar.icon] || Crown;
               return (
                 <div 
                   key={idx} 
@@ -181,7 +164,7 @@ export default function AboutPage() {
             <div className="lg:col-span-5 relative h-[500px] sm:h-[600px] w-full border border-[#ebd3b9]/30 p-4 bg-[#faf8f5]">
               <div className="relative w-full h-full">
                 <Image
-                  src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1200"
+                  src={about.story.image}
                   alt="High-end resort villa view representing Mulla properties"
                   layout="fill"
                   objectFit="cover"
@@ -196,26 +179,24 @@ export default function AboutPage() {
             </div>
 
             <div className="lg:col-span-7 space-y-8 pl-0 lg:pl-10">
-              <span className="text-xs uppercase tracking-[0.2em] text-[#ebd3b9] font-semibold">Our Journey</span>
+              <span className="text-xs uppercase tracking-[0.2em] text-[#ebd3b9] font-semibold">{about.story.badge}</span>
               <h2 className="text-3xl sm:text-5xl font-serif font-light text-[#2c2724] leading-tight">
-                From the Historic Shorelines of <br />
-                <span className="italic">Malindi, Kenya</span>
+                {about.story.title} <br />
+                <span className="italic">{about.story.italic_title}</span>
               </h2>
               <p className="text-[#635a54] text-lg font-light leading-relaxed">
-                Mulla was founded to create an exquisite canvas of hospitality and retail on the East African coast. Malindi, with its deep-rooted history, Swahili archways, and trade winds, serves as our continuous inspiration.
+                {about.story.description1}
               </p>
               <p className="text-[#635a54] leading-relaxed font-light">
-                We believe that modern travelers and collectors yearn for authenticity. Our residences are designed with local coral stone, high timber beams, and artisanal decor sourced directly from local Swahili carvers. Meanwhile, our boutique atelier features contemporary silhouettes made from organic local cottons, linen, and precious metals.
+                {about.story.description2}
               </p>
               <div className="grid grid-cols-2 gap-6 pt-4 border-t border-[#ebd3b9]/30">
-                <div>
-                  <h4 className="font-serif text-3xl text-[#2c2724]">100%</h4>
-                  <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">Locally Crafted Decor</p>
-                </div>
-                <div>
-                  <h4 className="font-serif text-3xl text-[#2c2724]">12+</h4>
-                  <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">Exclusive Residences</p>
-                </div>
+                {about.story.stats.map((stat, idx) => (
+                  <div key={idx}>
+                    <h4 className="font-serif text-3xl text-[#2c2724]">{stat.value}</h4>
+                    <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">{stat.label}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -226,11 +207,11 @@ export default function AboutPage() {
       <section className="py-24 bg-[#fbfaf8] border-t border-[#ebd3b9]/20">
         <div className="container max-w-6xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h3 className="text-2xl sm:text-3xl font-serif font-light text-[#2c2724]">Our Living Creed</h3>
+            <h3 className="text-2xl sm:text-3xl font-serif font-light text-[#2c2724]">{about.creed.title}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {values.map((v, i) => {
-              const Icon = v.icon;
+            {about.creed.values.map((v, i) => {
+              const Icon = iconMap[v.icon] || Heart;
               return (
                 <div key={i} className="text-center space-y-4">
                   <div className="w-12 h-12 rounded-full border border-[#ebd3b9] flex items-center justify-center mx-auto text-[#ebd3b9]">
@@ -251,7 +232,7 @@ export default function AboutPage() {
       <section className="relative py-24 md:py-32 bg-[#2c2724] text-[#faf8f5] overflow-hidden">
         <div className="absolute inset-0 opacity-15 mix-blend-overlay pointer-events-none">
           <Image
-            src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1800"
+            src={about.cta.bg_image}
             alt="Mulla sands"
             layout="fill"
             objectFit="cover"
@@ -260,17 +241,17 @@ export default function AboutPage() {
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-8">
           <Compass className="w-12 h-12 text-[#ebd3b9] mx-auto animate-spin-slow stroke-[1.2]" />
           <h2 className="text-3xl sm:text-5xl font-serif font-light tracking-tight">
-            Embrace the <span className="italic text-[#ebd3b9]">Mulla Lifestyle</span> Today
+            {about.cta.title} <span className="italic text-[#ebd3b9]">{about.cta.italic_title}</span>
           </h2>
           <p className="text-white/80 max-w-2xl mx-auto font-light leading-relaxed">
-            Whether you are choosing a piece of coastal elegance to adorn your home, purchasing luxury apparel, or reserving your next sanctuary in Malindi, Mulla is here to transform your expectations.
+            {about.cta.description}
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             <Button asChild size="lg" className="bg-[#ebd3b9] hover:bg-[#ebd3b9]/90 text-[#2c2724] rounded-none px-8 py-6 text-sm">
-              <Link href="/shop">Browse the Shop</Link>
+              <Link href={about.cta.cta_link1}>{about.cta.cta_text1}</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-white/40 text-white hover:bg-white hover:text-[#2c2724] rounded-none px-8 py-6 text-sm bg-transparent">
-              <Link href="/apartments">Explore Apartments</Link>
+              <Link href={about.cta.cta_link2}>{about.cta.cta_text2}</Link>
             </Button>
           </div>
         </div>

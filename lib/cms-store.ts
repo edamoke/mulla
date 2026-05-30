@@ -99,6 +99,73 @@ export interface CMSBranding {
   site_icon: string
 }
 
+export interface CMSAboutPillar {
+  number: string
+  title: string
+  subtitle: string
+  description: string
+  icon: string
+  link: string
+  cta: string
+}
+
+export interface CMSAboutValue {
+  icon: string
+  title: string
+  desc: string
+}
+
+export interface CMSAboutStat {
+  value: string
+  label: string
+}
+
+export interface CMSAboutPage {
+  hero: {
+    badge: string
+    title_line1: string
+    title_italic: string
+    description: string
+    bg_image: string
+    cta_text1: string
+    cta_link1: string
+    cta_text2: string
+    cta_link2: string
+  }
+  philosophy: {
+    quote: string
+  }
+  pillars: {
+    badge: string
+    title: string
+    description: string
+    items: CMSAboutPillar[]
+  }
+  story: {
+    badge: string
+    title: string
+    italic_title: string
+    description1: string
+    description2: string
+    image: string
+    stats: CMSAboutStat[]
+  }
+  creed: {
+    title: string
+    values: CMSAboutValue[]
+  }
+  cta: {
+    title: string
+    italic_title: string
+    description: string
+    bg_image: string
+    cta_text1: string
+    cta_link1: string
+    cta_text2: string
+    cta_link2: string
+  }
+}
+
 export interface CMSData {
   branding: CMSBranding
   home: {
@@ -113,6 +180,7 @@ export interface CMSData {
   shop: {
     header: CMSPageHeader
   }
+  about: CMSAboutPage
   apartments: {
     header: CMSPageHeader
   }
@@ -307,6 +375,98 @@ export const DEFAULT_CMS: CMSData = {
       subtitle: "Premium rentals in Malindi"
     }
   },
+  about: {
+    hero: {
+      badge: "Introducing Mulla",
+      title_line1: "Where Coastline Charm Meets",
+      title_italic: "Sovereign Elegance",
+      description: "Mulla is a sanctuary of refined lifestyle. We bridge the rich culture of Malindi, Kenya with high-fashion retail, bespoke short-term stays, and unforgettable coastal experiences.",
+      bg_image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1800",
+      cta_text1: "Explore the Collections",
+      cta_link1: "/shop",
+      cta_text2: "The Residences",
+      cta_link2: "/apartments"
+    },
+    philosophy: {
+      quote: "We do not merely sell garments or lease properties; we curate moments of exquisite pause. Mulla is a state of mind, inspired by the gentle tide and crafted for the global connoisseur."
+    },
+    pillars: {
+      badge: "Our Universe",
+      title: "The Three Pillars of Mulla",
+      description: "We seamlessly weave retail, coastal residences, and personalized hospitality into one comprehensive luxury gateway.",
+      items: [
+        {
+          number: "01",
+          title: "The Atelier",
+          subtitle: "RETAIL & COUTURE",
+          description: "A meticulously curated gallery of high-fashion resort wear, artisanal jewelry, and tailored apparel. Each piece is hand-selected to embrace the breezy, sun-kissed sophistication of the East African coast.",
+          icon: "Crown",
+          link: "/shop",
+          cta: "Explore Atelier"
+        },
+        {
+          number: "02",
+          title: "The Sanctuaries",
+          subtitle: "LUXURY RESIDENCES",
+          description: "Breathtaking beachfront villas and curated apartments nestled in the historic coastal enclave of Malindi, Kenya. Merging traditional Swahili craftsmanship with modern architectural grandeur.",
+          icon: "Waves",
+          link: "/apartments",
+          cta: "Reserve a Stay"
+        },
+        {
+          number: "03",
+          title: "Bespoke Concierge",
+          subtitle: "TAILORED HOSPITALITY",
+          description: "From private yacht charters across the turquoise Indian Ocean to dining experiences curated by master chefs, we define personalized hospitality. Complemented by our AI-powered virtual butler.",
+          icon: "Compass",
+          link: "/shop",
+          cta: "Discover More"
+        }
+      ]
+    },
+    story: {
+      badge: "Our Journey",
+      title: "From the Historic Shorelines of",
+      italic_title: "Malindi, Kenya",
+      description1: "Mulla was founded to create an exquisite canvas of hospitality and retail on the East African coast. Malindi, with its deep-rooted history, Swahili archways, and trade winds, serves as our continuous inspiration.",
+      description2: "We believe that modern travelers and collectors yearn for authenticity. Our residences are designed with local coral stone, high timber beams, and artisanal decor sourced directly from local Swahili carvers. Meanwhile, our boutique atelier features contemporary silhouettes made from organic local cottons, linen, and precious metals.",
+      image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1200",
+      stats: [
+        { value: "100%", label: "Locally Crafted Decor" },
+        { value: "12+", label: "Exclusive Residences" }
+      ]
+    },
+    creed: {
+      title: "Our Living Creed",
+      values: [
+        {
+          icon: "Anchor",
+          title: "Heritage Rooted",
+          desc: "Inspired by the century-old Swahili maritime trade routes, bringing global luxury to the beautiful shores of Kenya."
+        },
+        {
+          icon: "Sparkles",
+          title: "Curation Over Mass",
+          desc: "We reject the ordinary. Every fabric, ornament, and suite layout is handpicked for its unique story and aesthetic depth."
+        },
+        {
+          icon: "Moon",
+          title: "Mystique & Elegance",
+          desc: "The gentle tropical breeze, the shifting shadows of palm leaves, and golden Malindi sand translated into timeless designs."
+        }
+      ]
+    },
+    cta: {
+      title: "Embrace the",
+      italic_title: "Mulla Lifestyle Today",
+      description: "Whether you are choosing a piece of coastal elegance to adorn your home, purchasing luxury apparel, or reserving your next sanctuary in Malindi, Mulla is here to transform your expectations.",
+      bg_image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1800",
+      cta_text1: "Browse the Shop",
+      cta_link1: "/shop",
+      cta_text2: "Explore Apartments",
+      cta_link2: "/apartments"
+    }
+  },
   footer: {
     description: "Luxury fashion and lifestyle boutique in Malindi. Curated collections for those who appreciate the finer things in coastal living."
   }
@@ -325,7 +485,7 @@ export function getCMSData(): CMSData {
     // Client-side fallback: safely use static import
     return {
       ...DEFAULT_CMS,
-      ...staticCmsData,
+      ...(staticCmsData as any),
       branding: {
         ...DEFAULT_CMS.branding,
         ...((staticCmsData as any).branding || {})
@@ -359,6 +519,28 @@ export function getCMSData(): CMSData {
         ...(staticCmsData.apartments || {}),
         header: { ...DEFAULT_CMS.apartments.header, ...(staticCmsData.apartments?.header || {}) }
       },
+      about: {
+        ...DEFAULT_CMS.about,
+        ...(staticCmsData.about || {}),
+        hero: { ...DEFAULT_CMS.about.hero, ...(staticCmsData.about?.hero || {}) },
+        philosophy: { ...DEFAULT_CMS.about.philosophy, ...(staticCmsData.about?.philosophy || {}) },
+        pillars: {
+          ...DEFAULT_CMS.about.pillars,
+          ...(staticCmsData.about?.pillars || {}),
+          items: (staticCmsData.about as any)?.pillars?.items || DEFAULT_CMS.about.pillars.items
+        },
+        story: {
+          ...DEFAULT_CMS.about.story,
+          ...(staticCmsData.about?.story || {}),
+          stats: (staticCmsData.about as any)?.story?.stats || DEFAULT_CMS.about.story.stats
+        },
+        creed: {
+          ...DEFAULT_CMS.about.creed,
+          ...(staticCmsData.about?.creed || {}),
+          values: (staticCmsData.about as any)?.creed?.values || DEFAULT_CMS.about.creed.values
+        },
+        cta: { ...DEFAULT_CMS.about.cta, ...(staticCmsData.about?.cta || {}) }
+      },
       footer: {
         ...DEFAULT_CMS.footer,
         ...(staticCmsData.footer || {})
@@ -374,7 +556,7 @@ export function getCMSData(): CMSData {
       const parsed = JSON.parse(data)
       return {
         ...DEFAULT_CMS,
-        ...parsed,
+        ...(parsed as any),
         branding: {
           ...DEFAULT_CMS.branding,
           ...(parsed.branding || {})
@@ -407,6 +589,28 @@ export function getCMSData(): CMSData {
           ...DEFAULT_CMS.apartments,
           ...(parsed.apartments || {}),
           header: { ...DEFAULT_CMS.apartments.header, ...(parsed.apartments?.header || {}) }
+        },
+        about: {
+          ...DEFAULT_CMS.about,
+          ...(parsed.about || {}),
+          hero: { ...DEFAULT_CMS.about.hero, ...(parsed.about?.hero || {}) },
+          philosophy: { ...DEFAULT_CMS.about.philosophy, ...(parsed.about?.philosophy || {}) },
+          pillars: {
+            ...DEFAULT_CMS.about.pillars,
+            ...(parsed.about?.pillars || {}),
+            items: parsed.about?.pillars?.items || DEFAULT_CMS.about.pillars.items
+          },
+          story: {
+            ...DEFAULT_CMS.about.story,
+            ...(parsed.about?.story || {}),
+            stats: parsed.about?.story?.stats || DEFAULT_CMS.about.story.stats
+          },
+          creed: {
+            ...DEFAULT_CMS.about.creed,
+            ...(parsed.about?.creed || {}),
+            values: parsed.about?.creed?.values || DEFAULT_CMS.about.creed.values
+          },
+          cta: { ...DEFAULT_CMS.about.cta, ...(parsed.about?.cta || {}) }
         },
         footer: {
           ...DEFAULT_CMS.footer,
@@ -465,6 +669,28 @@ export function saveCMSData(cms: Partial<CMSData>): CMSData {
         ...current.apartments,
         ...(cms.apartments || {}),
         header: { ...current.apartments.header, ...(cms.apartments?.header || {}) }
+      },
+      about: {
+        ...current.about,
+        ...(cms.about || {}),
+        hero: { ...current.about.hero, ...(cms.about?.hero || {}) },
+        philosophy: { ...current.about.philosophy, ...(cms.about?.philosophy || {}) },
+        pillars: {
+          ...current.about.pillars,
+          ...(cms.about?.pillars || {}),
+          items: cms.about?.pillars?.items || current.about.pillars.items
+        },
+        story: {
+          ...current.about.story,
+          ...(cms.about?.story || {}),
+          stats: cms.about?.story?.stats || current.about.story.stats
+        },
+        creed: {
+          ...current.about.creed,
+          ...(cms.about?.creed || {}),
+          values: cms.about?.creed?.values || current.about.creed.values
+        },
+        cta: { ...current.about.cta, ...(cms.about?.cta || {}) }
       },
       footer: {
         ...current.footer,
