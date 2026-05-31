@@ -221,7 +221,7 @@ export default function AdminProductsPage() {
           </div>
 
           {/* Products Table */}
-          <div className="bg-card border border-border/50 rounded-xl overflow-hidden">
+          <div className="bg-card border border-border/50 rounded-xl overflow-x-auto">
             {isLoading ? (
               <div className="p-8">
                 <div className="space-y-4">
