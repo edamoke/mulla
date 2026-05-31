@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
@@ -17,6 +18,8 @@ import {
   Receipt,
   UserCircle,
   FileText,
+  Menu,
+  X,
 } from "lucide-react"
 
 interface SidebarItem {
@@ -27,6 +30,7 @@ interface SidebarItem {
 
 export function AdminSidebar() {
   const pathname = usePathname()
+  const [isOpen, setIsOpen] = useState(false)
 
   const sidebarItems: SidebarItem[] = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
@@ -45,13 +49,24 @@ export function AdminSidebar() {
     { icon: Settings, label: "Settings", href: "/admin/settings" },
   ]
 
-  return (
-    <aside className="fixed left-0 top-0 h-full w-64 bg-card border-r border-border/50 z-50 hidden lg:block">
-      <div className="p-6">
-        <Link href="/" className="font-serif text-2xl text-foreground font-semibold">
-          Mulla
-        </Link>
-        <p className="text-xs text-muted-foreground mt-1">Admin Dashboard</p>
+  const toggleSidebar = () => setIsOpen(!isOpen)
+
+  const sidebarContent = (
+    <>
+      <div className="p-6 flex items-center justify-between">
+        <div>
+          <Link href="/" className="font-serif text-2xl text-foreground font-semibold">
+            Mulla
+          </Link>
+          <p className="text-xs text-muted-foreground mt-1">Admin Dashboard</p>
+        </div>
+        <button
+          onClick={toggleSidebar}
+          className="p-2 text-muted-foreground hover:text-foreground rounded-lg lg:hidden"
+          aria-label="Close menu"
+        >
+          <X className="w-5 h-5" />
+        </button>
       </div>
       <nav className="px-4 space-y-1 overflow-y-auto h-[calc(100vh-140px)]">
         {sidebarItems.map((item) => {
@@ -60,6 +75,7 @@ export function AdminSidebar() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={() => setIsOpen(false)}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium boty-transition ${
                 isActive
                   ? "bg-primary text-primary-foreground"
@@ -81,6 +97,43 @@ export function AdminSidebar() {
           Back to Store
         </Link>
       </div>
-    </aside>
+    </>
+  )
+
+  return (
+    <>
+      {/* Mobile Toggle Button - Floating beautifully in top-left */}
+      <div className="lg:hidden fixed top-3 left-4 z-50">
+        <button
+          onClick={toggleSidebar}
+          className="p-2.5 bg-background border border-border/60 text-foreground rounded-xl shadow-sm hover:bg-muted focus:outline-none transition-colors"
+          aria-label="Toggle Navigation"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Desktop Sidebar (hidden on mobile) */}
+      <aside className="fixed left-0 top-0 h-full w-64 bg-card border-r border-border/50 z-40 hidden lg:block">
+        {sidebarContent}
+      </aside>
+
+      {/* Mobile Overlay Background */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity"
+          onClick={toggleSidebar}
+        />
+      )}
+
+      {/* Mobile Sidebar (Slide-in drawer) */}
+      <aside
+        className={`fixed left-0 top-0 h-full w-64 bg-card border-r border-border/50 z-50 lg:hidden transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        {sidebarContent}
+      </aside>
+    </>
   )
 }

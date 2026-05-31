@@ -54,7 +54,15 @@ export default function AdminCMSPage() {
         const response = await fetch('/api/admin/cms')
         const data = await response.json()
         if (data.success && data.cms) {
-          setCmsData(data.cms)
+          // Merge with default CMS to ensure all sections exist
+          setCmsData({
+            ...DEFAULT_CMS,
+            ...data.cms,
+            about: {
+              ...DEFAULT_CMS.about,
+              ...(data.cms.about || {})
+            }
+          })
         }
       } catch (error) {
         console.error('Failed to load CMS data:', error)

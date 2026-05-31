@@ -21,6 +21,11 @@ export interface AdminSettings {
   mpesa_consumer_secret: string
   mpesa_passkey: string
   enable_online_pos_purchase: boolean
+  printer_paper_size: string
+  printer_connection_type: string
+  printer_ip_address: string
+  receipt_header_note: string
+  receipt_footer_note: string
 }
 
 export const DEFAULT_SETTINGS: AdminSettings = {
@@ -43,6 +48,11 @@ export const DEFAULT_SETTINGS: AdminSettings = {
   mpesa_consumer_secret: "CON_SEC_MULLA_2026",
   mpesa_passkey: "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919",
   enable_online_pos_purchase: true,
+  printer_paper_size: "80mm",
+  printer_connection_type: "usb",
+  printer_ip_address: "192.168.1.100",
+  receipt_header_note: "Welcome to Boty Luxury Boutique!",
+  receipt_footer_note: "Thank you for shopping with us! Compliant with KRA e-TIMS rules.",
 }
 
 const getFilePath = () => {

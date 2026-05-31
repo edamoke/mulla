@@ -17,5 +17,10 @@
   "mpesa_consumer_key": "CON_KEY_MULLA_TEST",
   "mpesa_consumer_secret": "CON_SEC_MULLA_TEST",
   "mpesa_passkey": "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919",
-  "enable_online_pos_purchase": true
+  "enable_online_pos_purchase": true,
+  "printer_paper_size": "80mm",
+  "printer_connection_type": "usb",
+  "printer_ip_address": "192.168.1.100",
+  "receipt_header_note": "Welcome to Boty Luxury Boutique!",
+  "receipt_footer_note": "Thank you for shopping with us! Compliant with KRA e-TIMS rules."
 }

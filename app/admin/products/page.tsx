@@ -138,7 +138,7 @@ export default function AdminProductsPage() {
       <AdminSidebar />
 
       {/* Main Content */}
-      <main className="ml-64 p-8">
+      <main className="lg:ml-64 flex-1 p-4 lg:p-8 pt-16 lg:pt-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
