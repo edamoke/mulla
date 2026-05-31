@@ -317,7 +317,7 @@ export default function POSPage() {
       </div>
 
       {/* Right Panel - Cart */}
-      <div className="w-96 bg-card border-l border-border flex flex-col">
+      <div className="w-full lg:w-96 bg-card border-t lg:border-t-0 lg:border-l border-border flex flex-col">
         <div className="p-4 border-b border-border">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Current Sale</h2>
